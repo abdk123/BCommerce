@@ -11,16 +11,16 @@ namespace Nop.Web.Controllers.Mobile
         private readonly ICatalogMobFactory _catalogMobFactory;
         private readonly IProductHomePageMobFactory _productHomePageFactory;
         private readonly IHomepageBestSellersMobFactory _homepageBestSellersFactory;
-        private readonly IHomepagePollsMobFactory _homepagePollsFactory;
+        
         public HomeController(ICatalogMobFactory catalogMobFactory, 
             IProductHomePageMobFactory productHomePageFactory,
-            IHomepageBestSellersMobFactory homepageBestSellersFactory,
-            IHomepagePollsMobFactory homepagePollsFactory)
+            IHomepageBestSellersMobFactory homepageBestSellersFactory
+            )
         {
             _catalogMobFactory = catalogMobFactory;
             _productHomePageFactory = productHomePageFactory;
             _homepageBestSellersFactory = homepageBestSellersFactory;
-            _homepagePollsFactory = homepagePollsFactory;
+            
         }
 
         [HttpGet]
@@ -67,15 +67,6 @@ namespace Nop.Web.Controllers.Mobile
             return Ok(model);
         }
 
-        [HttpGet]
-        [Route("GetHomePagePolls")]
-        public IActionResult GetHomePagePolls()
-        {
-            var model = _homepagePollsFactory.GetHomePagePolls();
-            if (!model.Any())
-                return BadRequest();
-
-            return Ok(model);
-        }
+        
     }
 }
