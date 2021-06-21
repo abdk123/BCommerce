@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
-using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Media;
 using Nop.Core.Domain.Vendors;
 using Nop.Services.Catalog;
@@ -11,9 +10,7 @@ using Nop.Services.Logging;
 using Nop.Services.Security;
 using Nop.Services.Stores;
 using Nop.Services.Vendors;
-using Microsoft.AspNetCore.Mvc;
 using Nop.Web.Factories.Mobile;
-using Nop.Web.Models.Mobile.Catalog;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -21,7 +18,7 @@ namespace Nop.Web.Controllers.Mobile
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CatlogController : ControllerBase
+    public class CatalogController : ControllerBase
     {
         #region Fields
 
@@ -48,7 +45,7 @@ namespace Nop.Web.Controllers.Mobile
         #endregion
         #region Ctor
 
-        public CatlogController(CatalogSettings catalogSettings,
+        public CatalogController(CatalogSettings catalogSettings,
             IAclService aclService,
             ICatalogMobFactory catalogModelFactory,
             ICategoryService categoryService,
@@ -116,8 +113,8 @@ namespace Nop.Web.Controllers.Mobile
             return Ok(new { Products = model, Count = model.Count});
         }
         [HttpGet]
-        [Route("GetGategoriesNavigation")]
-        public IActionResult GetGategoriesNavigation(int currentCategoryId, int currentProductId = 0)
+        [Route("GetCategoriesNavigation")]
+        public IActionResult GetCategoriesNavigation(int currentCategoryId, int currentProductId = 0)
         {
             var model = _catalogModelFactory.PrepareCategoryNavigationModel(currentCategoryId, currentProductId);
             if (model == null)
@@ -125,8 +122,8 @@ namespace Nop.Web.Controllers.Mobile
             return Ok(model);
         }
         [HttpGet]
-        [Route("GetGategories")]
-        public IActionResult GetGategories()
+        [Route("GetCategories")]
+        public IActionResult GetCategories()
         {
             var model = _catalogModelFactory.PrepareCategories();
             if (!model.Any())

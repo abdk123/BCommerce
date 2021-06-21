@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nop.Web.Factories.Mobile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,20 @@ namespace Nop.Web.Controllers.Mobile
     [ApiController]
     public class SliderController : ControllerBase
     {
-        
+        private readonly ISliderMobFactory _sliderFactory;
+        public SliderController(ISliderMobFactory sliderFactory)
+        {
+            _sliderFactory = sliderFactory;
+        }
+
+        [HttpGet]
+        public IActionResult GetSliders()
+        {
+            var model = _sliderFactory.GetSliders();
+            if (!model.Any())
+                return BadRequest();
+
+            return Ok(model);
+        }
     }
 }
