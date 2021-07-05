@@ -353,7 +353,7 @@ namespace Nop.Web.Controllers
             //ship to the same address?
             //by default Shipping is available if the country is not specified
             var shippingAllowed = _addressSettings.CountryEnabled ? _countryService.GetCountryByAddress(address)?.AllowsShipping ?? false : true;
-            if (_shippingSettings.ShipToSameAddress && shipToSameAddress && _shoppingCartService.ShoppingCartRequiresShipping(cart) && shippingAllowed)
+            if (_shippingSettings.ShipToSameAddress && _shoppingCartService.ShoppingCartRequiresShipping(cart) && shippingAllowed)
             {
                 _workContext.CurrentCustomer.ShippingAddressId = _workContext.CurrentCustomer.BillingAddressId;
                 _customerService.UpdateCustomer(_workContext.CurrentCustomer);
@@ -470,8 +470,8 @@ namespace Nop.Web.Controllers
                 return Challenge();
 
             if (!_shoppingCartService.ShoppingCartRequiresShipping(cart))
-                return RedirectToRoute("CheckoutShippingMethod");        
-
+                return RedirectToRoute("CheckoutShippingMethod");
+            return RedirectToRoute("CheckoutShippingMethod");
             //model
             var model = _checkoutModelFactory.PrepareShippingAddressModel(cart, prePopulateNewAddressWithCustomerFields: true);
             return View(model);
@@ -857,6 +857,7 @@ namespace Nop.Web.Controllers
 
             //model
             var model = _checkoutModelFactory.PreparePaymentInfoModel(paymentMethod);
+            return RedirectToRoute("CheckoutConfirm");
             return View(model);
         }
 
@@ -968,8 +969,8 @@ namespace Nop.Web.Controllers
                 if (processPaymentRequest == null)
                 {
                     //Check whether payment workflow is required
-                    if (_orderProcessingService.IsPaymentWorkflowRequired(cart))
-                        return RedirectToRoute("CheckoutPaymentInfo");
+                    //if (_orderProcessingService.IsPaymentWorkflowRequired(cart))
+                    //    return RedirectToRoute("CheckoutPaymentInfo");
 
                     processPaymentRequest = new ProcessPaymentRequest();
                 }
