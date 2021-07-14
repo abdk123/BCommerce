@@ -17,7 +17,7 @@
         <form asp-route="CheckoutBillingAddress" method="post">
             <div class="billing-addresses">
                 @await Component.InvokeAsync("Widget", new {widgetZone = PublicWidgetZones.CheckoutBillingAddressTop})
-                @if (Model.ShipToSameAddressAllowed)
+                @*@if (Model.ShipToSameAddressAllowed)
                 {
                     <div class="section ship-to-same-address">
                         <div class="selector">
@@ -25,7 +25,7 @@
                             <label asp-for="ShipToSameAddress">@T("Checkout.ShipToSameAddress")</label>
                         </div>
                     </div>
-                }
+                }*@
                 @if (Model.ExistingAddresses.Count > 0)
                 {
                     <div class="section select-billing-address">

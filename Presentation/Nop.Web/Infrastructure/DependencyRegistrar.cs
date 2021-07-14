@@ -117,6 +117,9 @@ namespace Nop.Web.Infrastructure
             builder.RegisterType<SliderMobFactory>().As<ISliderMobFactory>().InstancePerLifetimeScope();
             builder.RegisterType<WishlistMobFactory>().As<IWishlistMobFactory>().InstancePerLifetimeScope();
             // 
+            builder.RegisterType<CheckoutMobFactory>().As<ICheckoutMobFactory>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomerMobFactory>().As<ICustomerMobFactory>().InstancePerLifetimeScope();
+
         }
 
         /// <summary>

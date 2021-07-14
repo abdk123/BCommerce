@@ -202,7 +202,7 @@ namespace Nop.Web.Controllers.Mobile
         
         [HttpPost]
         [Route("UpdateCart")]
-        public IActionResult UpdateCart(List<UpdatedItemsInCart> updatedItems)
+        public IActionResult UpdateCart(UpdatedCartMobModel updatedCartModel)
         {
             Request.Headers.TryGetValue("token", out var token);
             if (string.IsNullOrEmpty(token))
@@ -223,21 +223,21 @@ namespace Nop.Web.Controllers.Mobile
             var cart = _shoppingCartService.GetShoppingCart(customer, ShoppingCartType.ShoppingCart, _storeContext.CurrentStore.Id);
 
 
-            var productIds = updatedItems.Select(x => x.ProductId).ToList();
+            var productIds = updatedCartModel.Items.Select(x => x.ProductId).ToList();
             var products = _productService.GetProductsByIds(cart.Select(item => item.ProductId).Distinct().ToArray())
                 .ToDictionary(item => item.Id, item => item);
             //get identifiers of items to remove
             var itemIdsToRemove = products.Where(x => productIds.Any(y => y != x.Key)).Select(x => x.Key).ToList();
             //get identifiers of items to add
-            var itemIdsToAdd = productIds.Where(x => products.Any(y => y.Key != x)).ToList();
+            var itemIdsToAdd = cart.Any() ? productIds.Where(x => products.Any(y => y.Key != x)).ToList() : productIds;
             //get order items with changed quantity
             var itemsWithNewQuantity = cart.Select(item => new
             {
                 //try to get a new quantity for the item, set 0 for items to remove
-                NewQuantity = itemIdsToRemove.Contains(item.ProductId) ? 0 : 
-                updatedItems.Any(x => x.ProductId == item.ProductId) && 
-                updatedItems.Where(x=> x.ProductId == item.ProductId).FirstOrDefault().Quantity != 0 ?
-                updatedItems.Where(x => x.ProductId == item.ProductId).FirstOrDefault().Quantity : item.Quantity,
+                NewQuantity = itemIdsToRemove.Contains(item.ProductId) ? 0 :
+                updatedCartModel.Items.Any(x => x.ProductId == item.ProductId) &&
+                updatedCartModel.Items.Where(x=> x.ProductId == item.ProductId).FirstOrDefault().Quantity != 0 ?
+                updatedCartModel.Items.Where(x => x.ProductId == item.ProductId).FirstOrDefault().Quantity : item.Quantity,
                 Item = item,
                 Product = products.ContainsKey(item.ProductId) ? products[item.ProductId] : null
             }).Where(item => item.NewQuantity != item.Item.Quantity);
@@ -273,9 +273,9 @@ namespace Nop.Web.Controllers.Mobile
                                product: item,
                                shoppingCartType: ShoppingCartType.ShoppingCart,
                                storeId: _storeContext.CurrentStore.Id,
-                               quantity: updatedItems.Any(x => x.ProductId == item.Id) &&
-                                         updatedItems.Where(x => x.ProductId == item.Id).FirstOrDefault().Quantity != 0 ?
-                                         updatedItems.Where(x => x.ProductId == item.Id).FirstOrDefault().Quantity : 1)
+                               quantity: updatedCartModel.Items.Any(x => x.ProductId == item.Id) &&
+                                         updatedCartModel.Items.Where(x => x.ProductId == item.Id).FirstOrDefault().Quantity != 0 ?
+                                         updatedCartModel.Items.Where(x => x.ProductId == item.Id).FirstOrDefault().Quantity : 1)
                 });
             }
             //updated cart
