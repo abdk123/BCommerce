@@ -30,6 +30,7 @@ namespace Nop.Web.Controllers.Mobile
         private readonly IProductAttributeParser _productAttributeParser;
         private readonly IProductAttributeService _productAttributeService;
         private readonly IShoppingCartService _shoppingCartService;
+        private readonly IGiftCardService _giftCardService;
         private readonly ICustomerService _customerService;
         private readonly IStoreContext _storeContext;
         private readonly IShoppingCartModelFactory _shoppingCartModelFactory;
@@ -44,6 +45,7 @@ namespace Nop.Web.Controllers.Mobile
             IShoppingCartService shoppingCartService,
             ICustomerService customerService,
             IStoreContext storeContext,
+            IGiftCardService giftCardService,
             IShoppingCartModelFactory shoppingCartModelFactory,
             IGenericAttributeService genericAttributeService,
             IDiscountService discountService,
@@ -55,6 +57,7 @@ namespace Nop.Web.Controllers.Mobile
             _shoppingCartService = shoppingCartService;
             _customerService = customerService;
             _storeContext = storeContext;
+            _giftCardService = giftCardService;
             _shoppingCartModelFactory = shoppingCartModelFactory;
             _genericAttributeService = genericAttributeService;
             _discountService = discountService;
@@ -314,6 +317,72 @@ namespace Nop.Web.Controllers.Mobile
             });
         }
         [HttpPost]
+        [Route("ApplyGiftCard")]
+        public virtual IActionResult ApplyGiftCard(string giftcardcouponcode, IFormCollection form)
+        {
+            Request.Headers.TryGetValue("token", out var token);
+            if (string.IsNullOrEmpty(token))
+                return Ok(new
+                {
+                    Success = false,
+                    Msg = "Token is missed"
+                });
+            Guid guid = Guid.Parse(token);
+            var customer = _customerService.GetCustomerByGuid(guid);
+            if (customer == null)
+                return Ok(new
+                {
+                    Success = false,
+                    Msg = "Customer not found"
+                });
+            //trim
+            if (giftcardcouponcode != null)
+                giftcardcouponcode = giftcardcouponcode.Trim();
+
+            //cart
+            var cart = _shoppingCartService.GetShoppingCart(customer, ShoppingCartType.ShoppingCart, _storeContext.CurrentStore.Id);
+
+
+            var model = new ShoppingCartModel();
+            if (!_shoppingCartService.ShoppingCartIsRecurring(cart))
+            {
+                if (!string.IsNullOrWhiteSpace(giftcardcouponcode))
+                {
+                    var giftCard = _giftCardService.GetAllGiftCards(giftCardCouponCode: giftcardcouponcode).FirstOrDefault();
+                    var isGiftCardValid = giftCard != null && _giftCardService.IsGiftCardValid(giftCard);
+                    if (isGiftCardValid)
+                    {
+                        _customerService.ApplyGiftCardCouponCode(customer, giftcardcouponcode);
+                        model.GiftCardBox.Message = _localizationService.GetResource("ShoppingCart.GiftCardCouponCode.Applied");
+                        model.GiftCardBox.IsApplied = true;
+                    }
+                    else
+                    {
+                        model.GiftCardBox.Message = _localizationService.GetResource("ShoppingCart.GiftCardCouponCode.WrongGiftCard");
+                        model.GiftCardBox.IsApplied = false;
+                    }
+                }
+                else
+                {
+                    model.GiftCardBox.Message = _localizationService.GetResource("ShoppingCart.GiftCardCouponCode.WrongGiftCard");
+                    model.GiftCardBox.IsApplied = false;
+                }
+            }
+            else
+            {
+                model.GiftCardBox.Message = _localizationService.GetResource("ShoppingCart.GiftCardCouponCode.DontWorkWithAutoshipProducts");
+                model.GiftCardBox.IsApplied = false;
+            }
+
+            return Ok(new
+            {
+                Success = true,
+                Msg = "",
+                Data = new { Data = model.GiftCardBox }
+            });
+        }
+
+        [HttpPost]
         [Route("ApplyDiscountCoupon")]
         public IActionResult ApplyDiscountCoupon(string discountcouponcode, IFormCollection form)
         {
@@ -403,6 +472,7 @@ namespace Nop.Web.Controllers.Mobile
                 OrderTotal = model.OrderTotal,
                 OrderTotalDiscount = model.OrderTotalDiscount,
                 SubTotal = model.SubTotal,
+                GiftCards = model.GiftCards,
                 SubTotalDiscount = model.SubTotalDiscount,
                 Shipping = model.Shipping
             };

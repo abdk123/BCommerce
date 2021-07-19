@@ -10,6 +10,7 @@ namespace Nop.Web.Models.Mobile.ShoppingCart
     {
         public OrderTotalMobModel()
         {
+            GiftCards = new List<Nop.Web.Models.ShoppingCart.OrderTotalsModel.GiftCard>();
         }
 
         public string SubTotal { get; set; }
@@ -19,5 +20,7 @@ namespace Nop.Web.Models.Mobile.ShoppingCart
         public string Shipping { get; set; }
         public string OrderTotalDiscount { get; set; }
         public string OrderTotal { get; set; }
+
+        public IList<Nop.Web.Models.ShoppingCart.OrderTotalsModel.GiftCard> GiftCards { get; set; }
     }
 }
