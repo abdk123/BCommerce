@@ -347,7 +347,7 @@
             <span asp-validation-for="ProductTags"></span>
         </div>
     </div>
-    <div class="form-group @(Model.ProductEditorSettingsModel.GTIN ? null : "advanced-setting")">
+    @*<div class="form-group @(Model.ProductEditorSettingsModel.GTIN ? null : "advanced-setting")">
         <div class="col-md-3">
             <nop-label asp-for="Gtin" />
         </div>
@@ -355,8 +355,8 @@
             <nop-editor asp-for="Gtin" />
             <span asp-validation-for="Gtin"></span>
         </div>
-    </div>
-    <div class="form-group @(Model.ProductEditorSettingsModel.ManufacturerPartNumber ? null : "advanced-setting")">
+    </div>*@
+    @*<div class="form-group @(Model.ProductEditorSettingsModel.ManufacturerPartNumber ? null : "advanced-setting")">
         <div class="col-md-3">
             <nop-label asp-for="ManufacturerPartNumber" />
         </div>
@@ -364,7 +364,7 @@
             <nop-editor asp-for="ManufacturerPartNumber" />
             <span asp-validation-for="ManufacturerPartNumber"></span>
         </div>
-    </div>
+    </div>*@
     <div class="form-group @(Model.ProductEditorSettingsModel.ShowOnHomepage ? null : "advanced-setting")" @(Model.IsLoggedInAsVendor ? Html.Raw("style='display: none;'") : null)>
         <div class="col-md-3">
             <nop-label asp-for="ShowOnHomepage" />
@@ -386,7 +386,7 @@
         </div>
     </nop-nested-setting>
 
-    <div class="form-group @(Model.ProductEditorSettingsModel.ProductType ? null : "advanced-setting")">
+    @*<div class="form-group @(Model.ProductEditorSettingsModel.ProductType ? null : "advanced-setting")">
         <div class="col-md-3">
             <nop-label asp-for="ProductTypeId" />
         </div>
@@ -394,8 +394,8 @@
             <nop-select asp-for="ProductTypeId" asp-items="@(((ProductType)Model.ProductTypeId).ToSelectList())" />
             <span asp-validation-for="ProductTypeId"></span>
         </div>
-    </div>
-    @if (Model.Id > 0 && Model.AssociatedToProductId > 0)
+    </div>*@
+    @*@if (Model.Id > 0 && Model.AssociatedToProductId > 0)
     {
         <div class="form-group @(Model.ProductEditorSettingsModel.ProductType ? null : "advanced-setting")">
             <div class="col-md-3">
@@ -405,8 +405,8 @@
                 <a asp-controller="Product" asp-action="Edit" asp-route-id="@Model.AssociatedToProductId">@Model.AssociatedToProductName</a>
             </div>
         </div>
-    }
-    <div class="panel panel-default margin-bottom" id="group-associated-products">
+    }*@
+    @*<div class="panel panel-default margin-bottom" id="group-associated-products">
         <div class="panel-heading">
             @T("Admin.Catalog.Products.AssociatedProducts")
         </div>
@@ -492,8 +492,8 @@
                 @T("Admin.Catalog.Products.AssociatedProducts.SaveBeforeEdit")
             </div>
         }
-    </div>
-    <div class="form-group @(Model.ProductEditorSettingsModel.ProductTemplate ? null : "advanced-setting")" @(Model.AvailableProductTemplates.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null) id="pnlProductTemplateId">
+    </div>*@
+    @*<div class="form-group @(Model.ProductEditorSettingsModel.ProductTemplate ? null : "advanced-setting")" @(Model.AvailableProductTemplates.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null) id="pnlProductTemplateId">
         <div class="col-md-3">
             <nop-label asp-for="ProductTemplateId" />
         </div>
@@ -510,8 +510,8 @@
             <nop-editor asp-for="VisibleIndividually" />
             <span asp-validation-for="VisibleIndividually"></span>
         </div>
-    </div>
-    <div class="form-group @(Model.ProductEditorSettingsModel.ACL ? null : "advanced-setting")">
+    </div>*@
+    @*<div class="form-group @(Model.ProductEditorSettingsModel.ACL ? null : "advanced-setting")">
         <div class="col-md-3">
             <nop-label asp-for="SelectedCustomerRoleIds" />
         </div>
@@ -583,7 +583,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="form-group @(Model.ProductEditorSettingsModel.Vendor ? null : "advanced-setting")" @(Model.IsLoggedInAsVendor ? Html.Raw("style='display: none;'") : null)>
         <div class="col-md-3">
             <nop-label asp-for="VendorId" />
@@ -593,7 +593,7 @@
             <span asp-validation-for="VendorId"></span>
         </div>
     </div>
-    <div class="@(Model.ProductEditorSettingsModel.RequireOtherProductsAddedToCart ? null : "advanced-setting")" id="group-required-other-products">
+    @*<div class="@(Model.ProductEditorSettingsModel.RequireOtherProductsAddedToCart ? null : "advanced-setting")" id="group-required-other-products">
         <div class="form-group">
             <div class="col-md-3">
                 <nop-label asp-for="RequireOtherProducts" />
@@ -646,7 +646,7 @@
                 </div>
             </div>
         </nop-nested-setting>
-    </div>
+    </div>*@
     <div class="form-group @(Model.ProductEditorSettingsModel.AllowCustomerReviews ? null : "advanced-setting")">
         <div class="col-md-3">
             <nop-label asp-for="AllowCustomerReviews" />

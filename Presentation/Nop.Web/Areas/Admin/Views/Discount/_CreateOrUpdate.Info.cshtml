@@ -170,7 +170,7 @@
             </div>
         </div>
     </nop-nested-setting>
-    <nop-nested-setting asp-for="RequiresCouponCode">
+    @*<nop-nested-setting asp-for="RequiresCouponCode">
         <div class="form-group" id="pnlDiscountUrl">
             <div class="col-md-3">
                 <nop-label asp-for="DiscountUrl" />
@@ -179,7 +179,7 @@
                 <div class="form-text-row">@Model.DiscountUrl</div>
             </div>
         </div>
-    </nop-nested-setting>
+    </nop-nested-setting>*@
     <div class="form-group">
         <div class="col-md-3">
             <nop-label asp-for="StartDateUtc" />
@@ -198,7 +198,7 @@
             <span asp-validation-for="EndDateUtc"></span>
         </div>
     </div>
-    <div class="form-group">
+    @*<div class="form-group">
         <div class="col-md-3">
             <nop-label asp-for="IsCumulative" />
         </div>
@@ -206,7 +206,7 @@
             <nop-editor asp-for="IsCumulative" />
             <span asp-validation-for="IsCumulative"></span>
         </div>
-    </div>
+    </div>*@
     <div class="form-group">
         <div class="col-md-3">
             <nop-label asp-for="DiscountLimitationId" />

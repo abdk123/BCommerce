@@ -28,7 +28,7 @@ namespace Nop.Core.Domain.Discounts
         /// <summary>
         /// Assigned to shipping
         /// </summary>
-        AssignedToShipping = 10,
+        //AssignedToShipping = 10,
 
         /// <summary>
         /// Assigned to order subtotal

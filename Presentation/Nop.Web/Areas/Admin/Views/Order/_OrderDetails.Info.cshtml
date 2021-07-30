@@ -181,7 +181,8 @@
                         {
                             <div class="col-md-2">
                                 <div class="form-text-row">
-                                    @Model.OrderSubtotalInclTax <strong>@T("Admin.Orders.Fields.OrderSubtotalInclTax")</strong>
+                                    @Model.OrderSubtotalInclTax 
+                                    @*<strong>@T("Admin.Orders.Fields.OrderSubtotalInclTax")</strong>*@
                                 </div>
                             </div>
                         }
@@ -189,7 +190,8 @@
                         {
                             <div class="col-md-10">
                                 <div class="form-text-row">
-                                    @Model.OrderSubtotalExclTax <strong>@T("Admin.Orders.Fields.OrderSubtotalExclTax")</strong>
+                                    @Model.OrderSubtotalExclTax 
+                                    @*<strong>@T("Admin.Orders.Fields.OrderSubtotalExclTax")</strong>*@
                                 </div>
                             </div>
                         }
@@ -214,7 +216,8 @@
                             {
                                 <div class="col-md-2">
                                     <div class="form-text-row">
-                                        @Model.OrderSubTotalDiscountInclTax <strong>@T("Admin.Orders.Fields.OrderSubTotalDiscountInclTax")</strong>
+                                        @Model.OrderSubTotalDiscountInclTax
+                                        @*<strong>@T("Admin.Orders.Fields.OrderSubTotalDiscountInclTax")</strong>*@
                                     </div>
                                 </div>
                             }
@@ -222,7 +225,8 @@
                             {
                                 <div class="col-md-10">
                                     <div class="form-text-row">
-                                        @Model.OrderSubTotalDiscountExclTax <strong>@T("Admin.Orders.Fields.OrderSubTotalDiscountExclTax")</strong>
+                                        @Model.OrderSubTotalDiscountExclTax 
+                                        @*<strong>@T("Admin.Orders.Fields.OrderSubTotalDiscountExclTax")</strong>*@
                                     </div>
                                 </div>
                             }
@@ -230,7 +234,7 @@
                     </div>
                 </div>
             }
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="col-md-3">
                     <div class="label-wrapper">
                         <label class="control-label">@T("Admin.Orders.Fields.OrderShipping")</label>
@@ -259,8 +263,8 @@
                         }
                     </div>
                 </div>
-            </div>
-            @if (((Model.AllowCustomersToSelectTaxDisplayType || Model.TaxDisplayType == TaxDisplayType.IncludingTax) && !string.IsNullOrEmpty(Model.PaymentMethodAdditionalFeeInclTax)) ||
+            </div>*@
+            @*@if (((Model.AllowCustomersToSelectTaxDisplayType || Model.TaxDisplayType == TaxDisplayType.IncludingTax) && !string.IsNullOrEmpty(Model.PaymentMethodAdditionalFeeInclTax)) ||
                ((Model.AllowCustomersToSelectTaxDisplayType || Model.TaxDisplayType == TaxDisplayType.ExcludingTax) && !string.IsNullOrEmpty(Model.PaymentMethodAdditionalFeeExclTax)))
             {
                 <div class="form-group">
@@ -293,8 +297,8 @@
                         </div>
                     </div>
                 </div>
-            }
-            @if (Model.DisplayTaxRates)
+            }*@
+            @*@if (Model.DisplayTaxRates)
             {
                 foreach (var tr in Model.TaxRates)
                 {
@@ -307,8 +311,8 @@
                         </div>
                     </div>
                 }
-            }
-            @if (Model.DisplayTax)
+            }*@
+            @*@if (Model.DisplayTax)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -318,7 +322,7 @@
                         <div class="form-text-row">@Model.Tax</div>
                     </div>
                 </div>
-            }
+            }*@
             @if (!string.IsNullOrEmpty(Model.OrderTotalDiscount))
             {
                 <div class="form-group">
@@ -342,7 +346,7 @@
                     </div>
                 </div>
             }
-            @if (Model.RedeemedRewardPoints > 0)
+            @*@if (Model.RedeemedRewardPoints > 0)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -352,7 +356,7 @@
                         <div class="form-text-row">@($"{Model.RedeemedRewardPoints} {T("Admin.Orders.Fields.RedeemedRewardPoints.Points")} {Model.RedeemedRewardPointsAmount}")</div>
                     </div>
                 </div>
-            }
+            }*@
             <div class="form-group">
                 <div class="col-md-3">
                     <nop-label asp-for="OrderTotal" />
@@ -361,7 +365,7 @@
                     <div class="form-text-row">@Model.OrderTotal</div>
                 </div>
             </div>
-            @if (!string.IsNullOrEmpty(Model.RefundedAmount))
+            @*@if (!string.IsNullOrEmpty(Model.RefundedAmount))
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -371,7 +375,7 @@
                         <div class="form-text-row">@Model.RefundedAmount</div>
                     </div>
                 </div>
-            }
+            }*@
             @if (Model.UsedDiscounts.Count > 0)
             {
                 <div class="form-group">
@@ -391,7 +395,7 @@
                     </div>
                 </div>
             }
-            <div class="form-group">
+            @*<div class="form-group">
                 <div class="col-md-3">
                     <nop-label asp-for="Profit" />
                 </div>
@@ -508,8 +512,8 @@
                         @T("Admin.Common.Cancel")
                     </button>
                 </div>
-            </div>
-            @if (Model.AllowStoringCreditCardNumber)
+            </div>*@
+            @*@if (Model.AllowStoringCreditCardNumber)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -522,8 +526,8 @@
                         <nop-editor asp-for="CardType" />
                     </div>
                 </div>
-            }
-            @if (Model.AllowStoringCreditCardNumber)
+            }*@
+            @*@if (Model.AllowStoringCreditCardNumber)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -536,8 +540,8 @@
                         <nop-editor asp-for="CardName" />
                     </div>
                 </div>
-            }
-            @if (Model.AllowStoringCreditCardNumber || !string.IsNullOrEmpty(Model.CardNumber))
+            }*@
+            @*@if (Model.AllowStoringCreditCardNumber || !string.IsNullOrEmpty(Model.CardNumber))
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -550,8 +554,8 @@
                         <nop-editor asp-for="CardNumber" />
                     </div>
                 </div>
-            }
-            @if (Model.AllowStoringCreditCardNumber)
+            }*@
+            @*@if (Model.AllowStoringCreditCardNumber)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -564,8 +568,8 @@
                         <nop-editor asp-for="CardCvv2" />
                     </div>
                 </div>
-            }
-            @if (Model.AllowStoringCreditCardNumber)
+            }*@
+            @*@if (Model.AllowStoringCreditCardNumber)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -578,8 +582,8 @@
                         <nop-editor asp-for="CardExpirationMonth" />
                     </div>
                 </div>
-            }
-            @if (Model.AllowStoringCreditCardNumber)
+            }*@
+            @*@if (Model.AllowStoringCreditCardNumber)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -592,8 +596,8 @@
                         <nop-editor asp-for="CardExpirationYear" />
                     </div>
                 </div>
-            }
-            @if (Model.AllowStoringCreditCardNumber)
+            }*@
+            @*@if (Model.AllowStoringCreditCardNumber)
             {
                 <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
@@ -611,8 +615,8 @@
                         </button>
                     </div>
                 </div>
-            }
-            @if (!string.IsNullOrEmpty(Model.AuthorizationTransactionId))
+            }*@
+            @*@if (!string.IsNullOrEmpty(Model.AuthorizationTransactionId))
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -652,7 +656,7 @@
                 <div class="col-md-9">
                     <div class="form-text-row">@Model.PaymentMethod</div>
                 </div>
-            </div>
+            </div>*@
 
             <div class="form-group">
                 <div class="col-md-3">
@@ -662,21 +666,29 @@
                     <div class="form-text-row">@Model.PaymentStatus</div>
                 </div>
             </div>
-            @if (Model.CanCapture || Model.CanMarkOrderAsPaid || Model.CanRefund || Model.CanRefundOffline ||
-              Model.CanPartiallyRefund || Model.CanPartiallyRefundOffline || Model.CanVoid || Model.CanVoidOffline)
+            @if (
+         //Model.CanCapture || 
+         Model.CanMarkOrderAsPaid
+        //Model.CanRefund ||
+        //Model.CanRefundOffline ||
+        //Model.CanPartiallyRefund ||
+        //Model.CanPartiallyRefundOffline ||
+        //Model.CanVoid ||
+        //Model.CanVoidOffline
+       )
             {
                 <div class="form-group">
                     <div class="col-md-9 col-md-offset-3">
                         @if (!Model.IsLoggedInAsVendor)
                         {
-                            if (Model.CanCapture)
+                            @*if (Model.CanCapture)
                             {
                                 <button type="submit" name="captureorder" id="captureorder" class="btn btn-primary">
                                     @T("Admin.Orders.Fields.Capture")
                                 </button>
                                 <text>&nbsp;</text>
                                 <nop-action-confirmation asp-button-id="captureorder" />
-                            }
+                            }*@
                             if (Model.CanMarkOrderAsPaid)
                             {
                                 <button type="submit" name="markorderaspaid" id="markorderaspaid" class="btn btn-primary">
@@ -685,23 +697,23 @@
                                 <text>&nbsp;</text>
                                 <nop-action-confirmation asp-button-id="markorderaspaid" />
                             }
-                            if (Model.CanRefund)
+                            @*if (Model.CanRefund)
                             {
                                 <button type="submit" name="refundorder" id="refundorder" class="btn btn-primary">
                                     @T("Admin.Orders.Fields.Refund")
                                 </button>
                                 <text>&nbsp;</text>
                                 <nop-action-confirmation asp-button-id="refundorder" />
-                            }
-                            if (Model.CanRefundOffline)
+                            }*@
+                            @*if (Model.CanRefundOffline)
                             {
                                 <button type="submit" name="refundorderoffline" id="refundorderoffline" class="btn btn-primary">
                                     @T("Admin.Orders.Fields.RefundOffline")
                                 </button>
                                 <text>&nbsp;</text>
                                 <nop-action-confirmation asp-button-id="refundorderoffline" />
-                            }
-                            if (Model.CanPartiallyRefund)
+                            }*@
+                            @*if (Model.CanPartiallyRefund)
                             {
                                 <button type="submit" id="partiallyrefundorder" name="partiallyrefundorder" onclick="javascript:OpenWindow('@(Url.Action("PartiallyRefundOrderPopup", "Order", new {id = Model.Id, online = true, btnId = "btnRefreshPage", formId = "order-form"}))', 500, 300, true); return false;" class="btn btn-primary">
                                     @T("Admin.Orders.Fields.PartialRefund")
@@ -714,8 +726,8 @@
                                     @T("Admin.Orders.Fields.PartialRefundOffline")
                                 </button>
                                 <text>&nbsp;</text>
-                            }
-                            if (Model.CanVoid)
+                            }*@
+                            @*if (Model.CanVoid)
                             {
                                 <button type="submit" name="voidorder" id="voidorder" class="btn btn-primary">
                                     @T("Admin.Orders.Fields.Void")
@@ -730,12 +742,12 @@
                                 </button>
                                 <text>&nbsp;</text>
                                 <nop-action-confirmation asp-button-id="voidorderoffline" />
-                            }
+                            }*@
                         }
                     </div>
                 </div>
             }
-            @if (Model.CustomValues != null && Model.CustomValues.Count > 0)
+            @*@if (Model.CustomValues != null && Model.CustomValues.Count > 0)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -754,7 +766,7 @@
                         </div>
                     </div>
                 </div>
-            }
+            }*@
         </div>
     </div>
     }
@@ -787,7 +799,7 @@
                     <div class="form-text-row">@Model.CustomerIp</div>
                 </div>
             </div>
-            @if (Model.RecurringPaymentId > 0)
+            @*@if (Model.RecurringPaymentId > 0)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -797,8 +809,8 @@
                         <a asp-controller="RecurringPayment" asp-action="Edit" asp-route-id="@Model.RecurringPaymentId">@T("Admin.Common.View")</a>
                     </div>
                 </div>
-            }
-            @if (!string.IsNullOrEmpty(Model.VatNumber))
+            }*@
+            @*@if (!string.IsNullOrEmpty(Model.VatNumber))
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -808,8 +820,8 @@
                         <div class="form-text-row">@Model.VatNumber</div>
                     </div>
                 </div>
-            }
-            @if (Model.AffiliateId > 0)
+            }*@
+            @*@if (Model.AffiliateId > 0)
             {
                 <div class="form-group">
                     <div class="col-md-3">
@@ -819,7 +831,7 @@
                         <a asp-controller="Affiliate" asp-action="Edit" asp-route-id="@Model.AffiliateId">@Model.AffiliateName - @T("Admin.Common.View")</a>
                     </div>
                 </div>
-            }
+            }*@
         </div>
     </div>
 </div>

@@ -3,9 +3,9 @@
 <div class="panel-body">
     <div class="panel panel-default sub-panel">
         <div class="panel-body">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="row">
-                    <table class="table table-hover table-bordered" style="max-width: 500px;">
+                    <table class="table table-hover table-bordered" style="max-width: 1200px;">
                         <thead>
                             <tr>
                                 <th colspan="2">
@@ -46,7 +46,7 @@
                                 </td>
                             </tr>
                         }
-                        @if (Model.BillingAddress.FaxEnabled)
+                        @*@if (Model.BillingAddress.FaxEnabled)
                         {
                             <tr>
                                 <td>
@@ -56,8 +56,8 @@
                                     @Model.BillingAddress.FaxNumber
                                 </td>
                             </tr>
-                        }
-                        @if (Model.BillingAddress.CompanyEnabled)
+                        }*@
+                        @*@if (Model.BillingAddress.CompanyEnabled)
                         {
                             <tr>
                                 <td>
@@ -67,7 +67,7 @@
                                     @Model.BillingAddress.Company
                                 </td>
                             </tr>
-                        }
+                        }*@
                         @if (Model.BillingAddress.StreetAddressEnabled)
                         {
                             <tr>
@@ -79,7 +79,7 @@
                                 </td>
                             </tr>
                         }
-                        @if (Model.BillingAddress.StreetAddress2Enabled)
+                        @*@if (Model.BillingAddress.StreetAddress2Enabled)
                         {
                             <tr>
                                 <td>
@@ -89,7 +89,7 @@
                                     @Model.BillingAddress.Address2
                                 </td>
                             </tr>
-                        }
+                        }*@
                         @if (Model.BillingAddress.CityEnabled)
                         {
                             <tr>
@@ -101,7 +101,7 @@
                                 </td>
                             </tr>
                         }
-                        @if (Model.BillingAddress.CountyEnabled)
+                        @*@if (Model.BillingAddress.CountyEnabled)
                         {
                             <tr>
                                 <td>
@@ -152,10 +152,10 @@
                                     @Html.Raw(Model.BillingAddress.FormattedCustomAddressAttributes)
                                 </td>
                             </tr>
-                        }
+                        }*@
                     </table>
                 </div>
-                <div class="row">
+                @*<div class="row">
                     @if (!Model.IsLoggedInAsVendor)
                     {
                         <div class="form-group">
@@ -164,9 +164,9 @@
                             </div>
                         </div>
                     }
-                </div>
+                </div>*@
             </div>
-            @if (Model.IsShippable)
+            @*@if (Model.IsShippable)
             {
                 if (!Model.PickupInStore && Model.ShippingAddress != null)
                 {
@@ -420,10 +420,10 @@
                 <div class="col-md-6">
                     @T("Admin.Orders.ShippingInfo.NotRequired")
                 </div>
-            }
+            }*@
         </div>
     </div>
-    @if (Model.IsShippable)
+    @*@if (Model.IsShippable)
     {
         <div class="panel panel-default sub-panel">
             <div class="panel-body">
@@ -608,5 +608,5 @@
                 </div>
             }
         </div>
-    }
+    }*@
 </div>

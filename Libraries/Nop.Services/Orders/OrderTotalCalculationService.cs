@@ -154,15 +154,15 @@ namespace Nop.Services.Orders
             if (_catalogSettings.IgnoreDiscounts)
                 return shippingDiscountAmount;
 
-            var allDiscounts = _discountService.GetAllDiscounts(DiscountType.AssignedToShipping);
+            //var allDiscounts = _discountService.GetAllDiscounts(DiscountType.AssignedToShipping);
             var allowedDiscounts = new List<Discount>();
-            if (allDiscounts != null)
-                foreach (var discount in allDiscounts)
-                    if (!_discountService.ContainsDiscount(allowedDiscounts, discount) &&
-                        _discountService.ValidateDiscount(discount, customer).IsValid)
-                    {
-                        allowedDiscounts.Add(discount);
-                    }
+            //if (allDiscounts != null)
+            //    foreach (var discount in allDiscounts)
+            //        if (!_discountService.ContainsDiscount(allowedDiscounts, discount) &&
+            //            _discountService.ValidateDiscount(discount, customer).IsValid)
+            //        {
+            //            allowedDiscounts.Add(discount);
+            //        }
 
             appliedDiscounts = _discountService.GetPreferredDiscount(allowedDiscounts, shippingTotal, out shippingDiscountAmount);
 
