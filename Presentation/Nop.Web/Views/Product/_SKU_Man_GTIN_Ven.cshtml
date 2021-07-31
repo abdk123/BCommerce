@@ -2,7 +2,9 @@
 @using Nop.Core.Domain.Catalog
 <div class="additional-details">
     @*SKU*@
-    @if ((!string.IsNullOrWhiteSpace(Model.Sku) || Model.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes) && Model.ShowSku )
+    @if ((!string.IsNullOrWhiteSpace(Model.Sku) 
+        //|| Model.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes
+        ) && Model.ShowSku )
     {
         <div class="sku" @(string.IsNullOrWhiteSpace(Model.Sku) ? Html.Raw("style=\"display:none\"") : null)>
             <span class="label">@T("Products.Sku"):</span>
@@ -10,7 +12,9 @@
         </div>
     }
     @*Manufacturer part number*@
-    @if ((!string.IsNullOrWhiteSpace(Model.ManufacturerPartNumber) || Model.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes) && Model.ShowManufacturerPartNumber)
+    @if ((!string.IsNullOrWhiteSpace(Model.ManufacturerPartNumber)
+       //|| Model.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes
+       ) && Model.ShowManufacturerPartNumber)
     {
         <div class="manufacturer-part-number" @(string.IsNullOrWhiteSpace(Model.ManufacturerPartNumber) ? Html.Raw("style=\"display:none\"") : null)>
             <span class="label">@T("Products.ManufacturerPartNumber"):</span>
@@ -18,7 +22,9 @@
         </div>
     }
     @*GTIN*@
-    @if ((!string.IsNullOrWhiteSpace(Model.Gtin) || Model.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes) && Model.ShowGtin)
+    @if ((!string.IsNullOrWhiteSpace(Model.Gtin) 
+        //|| Model.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes
+        ) && Model.ShowGtin)
     {
         <div class="gtin" @(string.IsNullOrWhiteSpace(Model.Gtin) ? Html.Raw("style=\"display:none\"") : null)>
             <span class="label">@T("Products.GTIN"):</span>

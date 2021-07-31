@@ -27,7 +27,7 @@
                 <i class="fa fa-plus-square"></i>
                 @T("Admin.Common.AddNew")
             </a>
-            <div class="btn-group">
+            @*<div class="btn-group">
                 <button type="button" class="btn btn-success">
                     <i class="fa fa-download"></i>
                     @T("Admin.Common.Export")
@@ -63,7 +63,7 @@
                         </button>
                     </li>
                 </ul>
-            </div>
+            </div>*@
             @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.CustomerListButtons })
         </div>
     </div>

@@ -165,19 +165,19 @@ namespace Nop.Services.Catalog
             manufacturerPartNumber = null;
             gtin = null;
 
-            if (!string.IsNullOrEmpty(attributesXml) &&
-                product.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes)
-            {
-                //manage stock by attribute combinations
-                //let's find appropriate record
-                var combination = _productAttributeParser.FindProductAttributeCombination(product, attributesXml);
-                if (combination != null)
-                {
-                    sku = combination.Sku;
-                    manufacturerPartNumber = combination.ManufacturerPartNumber;
-                    gtin = combination.Gtin;
-                }
-            }
+            //if (!string.IsNullOrEmpty(attributesXml) &&
+            //    product.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes)
+            //{
+            //    //manage stock by attribute combinations
+            //    //let's find appropriate record
+            //    var combination = _productAttributeParser.FindProductAttributeCombination(product, attributesXml);
+            //    if (combination != null)
+            //    {
+            //        sku = combination.Sku;
+            //        manufacturerPartNumber = combination.ManufacturerPartNumber;
+            //        gtin = combination.Gtin;
+            //    }
+            //}
 
             if (string.IsNullOrEmpty(sku))
                 sku = product.Sku;
@@ -945,7 +945,7 @@ namespace Nop.Services.Catalog
                     //filter by combinations with stock quantity less than the minimum
                     pac.StockQuantity < pac.NotifyAdminForQuantityBelow &&
                     //filter by products with tracking inventory by attributes
-                    p.ManageInventoryMethodId == (int)ManageInventoryMethod.ManageStockByAttributes &&
+                    //p.ManageInventoryMethodId == (int)ManageInventoryMethod.ManageStockByAttributes &&
                     //ignore deleted products
                     !p.Deleted &&
                     //ignore grouped products
@@ -1241,9 +1241,9 @@ namespace Nop.Services.Catalog
                 case ManageInventoryMethod.ManageStock:
                     stockMessage = GetStockMessage(product, stockMessage);
                     break;
-                case ManageInventoryMethod.ManageStockByAttributes:
-                    stockMessage = GeStockMessage(product, attributesXml);
-                    break;
+                //case ManageInventoryMethod.ManageStockByAttributes:
+                //    stockMessage = GeStockMessage(product, attributesXml);
+                //    break;
             }
 
             return stockMessage;
@@ -1466,25 +1466,25 @@ namespace Nop.Services.Catalog
                 }
             }
 
-            if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes)
-            {
-                var combination = _productAttributeParser.FindProductAttributeCombination(product, attributesXml);
-                if (combination != null)
-                {
-                    combination.StockQuantity += quantityToChange;
-                    _productAttributeService.UpdateProductAttributeCombination(combination);
+            //if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStockByAttributes)
+            //{
+            //    var combination = _productAttributeParser.FindProductAttributeCombination(product, attributesXml);
+            //    if (combination != null)
+            //    {
+            //        combination.StockQuantity += quantityToChange;
+            //        _productAttributeService.UpdateProductAttributeCombination(combination);
 
-                    //quantity change history
-                    AddStockQuantityHistoryEntry(product, quantityToChange, combination.StockQuantity, message: message, combinationId: combination.Id);
+            //        //quantity change history
+            //        AddStockQuantityHistoryEntry(product, quantityToChange, combination.StockQuantity, message: message, combinationId: combination.Id);
 
-                    //send email notification
-                    if (quantityToChange < 0 && combination.StockQuantity < combination.NotifyAdminForQuantityBelow)
-                    {
-                        var workflowMessageService = EngineContext.Current.Resolve<IWorkflowMessageService>();
-                        workflowMessageService.SendQuantityBelowStoreOwnerNotification(combination, _localizationSettings.DefaultAdminLanguageId);
-                    }
-                }
-            }
+            //        //send email notification
+            //        if (quantityToChange < 0 && combination.StockQuantity < combination.NotifyAdminForQuantityBelow)
+            //        {
+            //            var workflowMessageService = EngineContext.Current.Resolve<IWorkflowMessageService>();
+            //            workflowMessageService.SendQuantityBelowStoreOwnerNotification(combination, _localizationSettings.DefaultAdminLanguageId);
+            //        }
+            //    }
+            //}
 
             //bundled products
             var attributeValues = _productAttributeParser.ParseProductAttributeValues(attributesXml);

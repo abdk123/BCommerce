@@ -560,44 +560,44 @@ namespace Nop.Services.Orders
                         }
 
                         break;
-                    case ManageInventoryMethod.ManageStockByAttributes:
-                        var combination = _productAttributeParser.FindProductAttributeCombination(product, attributesXml);
-                        if (combination != null)
-                        {
-                            //combination exists
-                            //let's check stock level
-                            if (!combination.AllowOutOfStockOrders && combination.StockQuantity < quantity)
-                            {
-                                var maximumQuantityCanBeAdded = combination.StockQuantity;
-                                if (maximumQuantityCanBeAdded <= 0)
-                                {
-                                    var productAvailabilityRange = _dateRangeService.GetProductAvailabilityRangeById(product.ProductAvailabilityRangeId);
-                                    var warning = productAvailabilityRange == null ? _localizationService.GetResource("ShoppingCart.OutOfStock")
-                                        : string.Format(_localizationService.GetResource("ShoppingCart.AvailabilityRange"),
-                                            _localizationService.GetLocalized(productAvailabilityRange, range => range.Name));
-                                    warnings.Add(warning);
-                                }
-                                else
-                                {
-                                    warnings.Add(string.Format(_localizationService.GetResource("ShoppingCart.QuantityExceedsStock"), maximumQuantityCanBeAdded));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            //combination doesn't exist
-                            if (product.AllowAddingOnlyExistingAttributeCombinations)
-                            {
-                                //maybe, is it better  to display something like "No such product/combination" message?
-                                var productAvailabilityRange = _dateRangeService.GetProductAvailabilityRangeById(product.ProductAvailabilityRangeId);
-                                var warning = productAvailabilityRange == null ? _localizationService.GetResource("ShoppingCart.OutOfStock")
-                                    : string.Format(_localizationService.GetResource("ShoppingCart.AvailabilityRange"),
-                                        _localizationService.GetLocalized(productAvailabilityRange, range => range.Name));
-                                warnings.Add(warning);
-                            }
-                        }
+                    //case ManageInventoryMethod.ManageStockByAttributes:
+                    //    var combination = _productAttributeParser.FindProductAttributeCombination(product, attributesXml);
+                    //    if (combination != null)
+                    //    {
+                    //        //combination exists
+                    //        //let's check stock level
+                    //        if (!combination.AllowOutOfStockOrders && combination.StockQuantity < quantity)
+                    //        {
+                    //            var maximumQuantityCanBeAdded = combination.StockQuantity;
+                    //            if (maximumQuantityCanBeAdded <= 0)
+                    //            {
+                    //                var productAvailabilityRange = _dateRangeService.GetProductAvailabilityRangeById(product.ProductAvailabilityRangeId);
+                    //                var warning = productAvailabilityRange == null ? _localizationService.GetResource("ShoppingCart.OutOfStock")
+                    //                    : string.Format(_localizationService.GetResource("ShoppingCart.AvailabilityRange"),
+                    //                        _localizationService.GetLocalized(productAvailabilityRange, range => range.Name));
+                    //                warnings.Add(warning);
+                    //            }
+                    //            else
+                    //            {
+                    //                warnings.Add(string.Format(_localizationService.GetResource("ShoppingCart.QuantityExceedsStock"), maximumQuantityCanBeAdded));
+                    //            }
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        //combination doesn't exist
+                    //        if (product.AllowAddingOnlyExistingAttributeCombinations)
+                    //        {
+                    //            //maybe, is it better  to display something like "No such product/combination" message?
+                    //            var productAvailabilityRange = _dateRangeService.GetProductAvailabilityRangeById(product.ProductAvailabilityRangeId);
+                    //            var warning = productAvailabilityRange == null ? _localizationService.GetResource("ShoppingCart.OutOfStock")
+                    //                : string.Format(_localizationService.GetResource("ShoppingCart.AvailabilityRange"),
+                    //                    _localizationService.GetLocalized(productAvailabilityRange, range => range.Name));
+                    //            warnings.Add(warning);
+                    //        }
+                    //    }
 
-                        break;
+                    //    break;
                     default:
                         break;
                 }
