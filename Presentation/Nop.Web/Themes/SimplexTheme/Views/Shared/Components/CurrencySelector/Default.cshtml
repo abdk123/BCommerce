@@ -1,7 +1,7 @@
 ﻿@model CurrencySelectorModel
 
 @inject Nop.Core.IWebHelper webHelper
-@if (Model.AvailableCurrencies.Count > 1)
+@*@if (Model.AvailableCurrencies.Count > 1)
 {
     <div class="currency-selector">
         @{
@@ -15,4 +15,4 @@
             <select id="customerCurrency" name="customerCurrency" asp-items="@currencies" onchange="setLocation(this.value);" aria-label="@T("Currency.Selector.Label")"></select>
         }
     </div>
-}
+}*@
