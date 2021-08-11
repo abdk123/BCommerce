@@ -652,14 +652,14 @@ namespace Nop.Services.ExportImport
 
             if (pav == null)
             {
-                switch (attributeControlType)
-                {
-                    case AttributeControlType.Datepicker:
-                    case AttributeControlType.FileUpload:
-                    case AttributeControlType.MultilineTextbox:
-                    case AttributeControlType.TextBox:
-                        return;
-                }
+                //switch (attributeControlType)
+                //{
+                //    case AttributeControlType.Datepicker:
+                //    case AttributeControlType.FileUpload:
+                //    case AttributeControlType.MultilineTextbox:
+                //    case AttributeControlType.TextBox:
+                //        return;
+                //}
 
                 pav = new ProductAttributeValue
                 {
@@ -872,7 +872,7 @@ namespace Nop.Services.ExportImport
 
             if (_catalogSettings.ExportImportUseDropdownlistsForAssociatedEntities)
             {
-                productAttributeManager.SetSelectList("AttributeControlType", AttributeControlType.TextBox.ToSelectList(useLocalization: false));
+                //productAttributeManager.SetSelectList("AttributeControlType", AttributeControlType.TextBox.ToSelectList(useLocalization: false));
                 productAttributeManager.SetSelectList("AttributeValueType", AttributeValueType.Simple.ToSelectList(useLocalization: false));
 
                 specificationAttributeManager.SetSelectList("AttributeType", SpecificationAttributeType.Option.ToSelectList(useLocalization: false));

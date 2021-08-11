@@ -353,8 +353,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                 {
                     case AttributeControlType.DropdownList:
                     case AttributeControlType.RadioList:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
                         ctrlAttributes = form[controlId];
                         if (!string.IsNullOrEmpty(ctrlAttributes))
                         {
@@ -380,92 +380,92 @@ namespace Nop.Web.Areas.Admin.Controllers
                         }
 
                         break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                        //load read-only (already server-side selected) values
-                        var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
-                        foreach (var selectedAttributeId in attributeValues
-                            .Where(v => v.IsPreSelected)
-                            .Select(v => v.Id)
-                            .ToList())
-                        {
-                            attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
-                                attribute, selectedAttributeId.ToString());
-                        }
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //    //load read-only (already server-side selected) values
+                    //    var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
+                    //    foreach (var selectedAttributeId in attributeValues
+                    //        .Where(v => v.IsPreSelected)
+                    //        .Select(v => v.Id)
+                    //        .ToList())
+                    //    {
+                    //        attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
+                    //            attribute, selectedAttributeId.ToString());
+                    //    }
 
-                        break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                        ctrlAttributes = form[controlId];
-                        if (!string.IsNullOrEmpty(ctrlAttributes))
-                        {
-                            var enteredText = ctrlAttributes.ToString().Trim();
-                            attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
-                                attribute, enteredText);
-                        }
+                    //    break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //    ctrlAttributes = form[controlId];
+                    //    if (!string.IsNullOrEmpty(ctrlAttributes))
+                    //    {
+                    //        var enteredText = ctrlAttributes.ToString().Trim();
+                    //        attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
+                    //            attribute, enteredText);
+                    //    }
 
-                        break;
-                    case AttributeControlType.Datepicker:
-                        var date = form[controlId + "_day"];
-                        var month = form[controlId + "_month"];
-                        var year = form[controlId + "_year"];
-                        DateTime? selectedDate = null;
-                        try
-                        {
-                            selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(date));
-                        }
-                        catch
-                        {
-                            //ignore any exception
-                        }
+                    //    break;
+                    //case AttributeControlType.Datepicker:
+                    //    var date = form[controlId + "_day"];
+                    //    var month = form[controlId + "_month"];
+                    //    var year = form[controlId + "_year"];
+                    //    DateTime? selectedDate = null;
+                    //    try
+                    //    {
+                    //        selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(date));
+                    //    }
+                    //    catch
+                    //    {
+                    //        //ignore any exception
+                    //    }
 
-                        if (selectedDate.HasValue)
-                        {
-                            attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
-                                attribute, selectedDate.Value.ToString("D"));
-                        }
+                    //    if (selectedDate.HasValue)
+                    //    {
+                    //        attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
+                    //            attribute, selectedDate.Value.ToString("D"));
+                    //    }
 
-                        break;
-                    case AttributeControlType.FileUpload:
-                        var httpPostedFile = Request.Form.Files[controlId];
-                        if (!string.IsNullOrEmpty(httpPostedFile?.FileName))
-                        {
-                            var fileSizeOk = true;
-                            if (attribute.ValidationFileMaximumSize.HasValue)
-                            {
-                                //compare in bytes
-                                var maxFileSizeBytes = attribute.ValidationFileMaximumSize.Value * 1024;
-                                if (httpPostedFile.Length > maxFileSizeBytes)
-                                {
-                                    warnings.Add(string.Format(
-                                        _localizationService.GetResource("ShoppingCart.MaximumUploadedFileSize"),
-                                        attribute.ValidationFileMaximumSize.Value));
-                                    fileSizeOk = false;
-                                }
-                            }
+                    //    break;
+                    //case AttributeControlType.FileUpload:
+                    //    var httpPostedFile = Request.Form.Files[controlId];
+                    //    if (!string.IsNullOrEmpty(httpPostedFile?.FileName))
+                    //    {
+                    //        var fileSizeOk = true;
+                    //        if (attribute.ValidationFileMaximumSize.HasValue)
+                    //        {
+                    //            //compare in bytes
+                    //            var maxFileSizeBytes = attribute.ValidationFileMaximumSize.Value * 1024;
+                    //            if (httpPostedFile.Length > maxFileSizeBytes)
+                    //            {
+                    //                warnings.Add(string.Format(
+                    //                    _localizationService.GetResource("ShoppingCart.MaximumUploadedFileSize"),
+                    //                    attribute.ValidationFileMaximumSize.Value));
+                    //                fileSizeOk = false;
+                    //            }
+                    //        }
 
-                            if (fileSizeOk)
-                            {
-                                //save an uploaded file
-                                var download = new Download
-                                {
-                                    DownloadGuid = Guid.NewGuid(),
-                                    UseDownloadUrl = false,
-                                    DownloadUrl = string.Empty,
-                                    DownloadBinary = _downloadService.GetDownloadBits(httpPostedFile),
-                                    ContentType = httpPostedFile.ContentType,
-                                    Filename = _fileProvider.GetFileNameWithoutExtension(httpPostedFile.FileName),
-                                    Extension = _fileProvider.GetFileExtension(httpPostedFile.FileName),
-                                    IsNew = true
-                                };
-                                _downloadService.InsertDownload(download);
+                    //        if (fileSizeOk)
+                    //        {
+                    //            //save an uploaded file
+                    //            var download = new Download
+                    //            {
+                    //                DownloadGuid = Guid.NewGuid(),
+                    //                UseDownloadUrl = false,
+                    //                DownloadUrl = string.Empty,
+                    //                DownloadBinary = _downloadService.GetDownloadBits(httpPostedFile),
+                    //                ContentType = httpPostedFile.ContentType,
+                    //                Filename = _fileProvider.GetFileNameWithoutExtension(httpPostedFile.FileName),
+                    //                Extension = _fileProvider.GetFileExtension(httpPostedFile.FileName),
+                    //                IsNew = true
+                    //            };
+                    //            _downloadService.InsertDownload(download);
 
-                                //save attribute
-                                attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
-                                    attribute, download.DownloadGuid.ToString());
-                            }
-                        }
+                    //            //save attribute
+                    //            attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
+                    //                attribute, download.DownloadGuid.ToString());
+                    //        }
+                    //    }
 
-                        break;
+                    //    break;
                     default:
                         break;
                 }
@@ -610,8 +610,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                     {
                         case AttributeControlType.DropdownList:
                         case AttributeControlType.RadioList:
-                        case AttributeControlType.ColorSquares:
-                        case AttributeControlType.ImageSquares:
+                        //case AttributeControlType.ColorSquares:
+                        //case AttributeControlType.ImageSquares:
                             var ctrlAttributes = form[controlId];
                             if (!StringValues.IsNullOrEmpty(ctrlAttributes))
                             {
@@ -668,11 +668,11 @@ namespace Nop.Web.Areas.Admin.Controllers
                             }
 
                             break;
-                        case AttributeControlType.ReadonlyCheckboxes:
-                        case AttributeControlType.TextBox:
-                        case AttributeControlType.MultilineTextbox:
-                        case AttributeControlType.Datepicker:
-                        case AttributeControlType.FileUpload:
+                        //case AttributeControlType.ReadonlyCheckboxes:
+                        //case AttributeControlType.TextBox:
+                        //case AttributeControlType.MultilineTextbox:
+                        //case AttributeControlType.Datepicker:
+                        //case AttributeControlType.FileUpload:
                         default:
                             //these attribute types are supported as conditions
                             break;
@@ -794,7 +794,10 @@ namespace Nop.Web.Areas.Admin.Controllers
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
-
+            model.VisibleIndividually = true;
+            model.ProductTypeId = 5;
+            model.IsFreeShipping = true;
+            model.DisplayStockAvailability = true;
             //validate maximum number of products per vendor
             if (_vendorSettings.MaximumProductNumber > 0 && _workContext.CurrentVendor != null
                 && _productService.GetNumberOfProductsByVendorId(_workContext.CurrentVendor.Id) >= _vendorSettings.MaximumProductNumber)
@@ -896,7 +899,10 @@ namespace Nop.Web.Areas.Admin.Controllers
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
-
+            model.VisibleIndividually = true;
+            model.ProductTypeId = 5;
+            model.IsFreeShipping = true;
+            model.DisplayStockAvailability = true;
             //try to get a product with the specified id
             var product = _productService.GetProductById(model.Id);
             if (product == null || product.Deleted)
@@ -941,18 +947,18 @@ namespace Nop.Web.Areas.Admin.Controllers
                 _productService.UpdateProduct(product);
 
                 //remove associated products
-                if (previousProductType == ProductType.GroupedProduct && product.ProductType == ProductType.SimpleProduct)
-                {
-                    var storeId = _storeContext.CurrentStore?.Id ?? 0;
-                    var vendorId = _workContext.CurrentVendor?.Id ?? 0;
+                //if (previousProductType == ProductType.GroupedProduct && product.ProductType == ProductType.SimpleProduct)
+                //{
+                //    var storeId = _storeContext.CurrentStore?.Id ?? 0;
+                //    var vendorId = _workContext.CurrentVendor?.Id ?? 0;
 
-                    var associatedProducts = _productService.GetAssociatedProducts(product.Id, storeId, vendorId);
-                    foreach (var associatedProduct in associatedProducts)
-                    {
-                        associatedProduct.ParentGroupedProductId = 0;
-                        _productService.UpdateProduct(associatedProduct);
-                    }
-                }
+                //    var associatedProducts = _productService.GetAssociatedProducts(product.Id, storeId, vendorId);
+                //    foreach (var associatedProduct in associatedProducts)
+                //    {
+                //        associatedProduct.ParentGroupedProductId = 0;
+                //        _productService.UpdateProduct(associatedProduct);
+                //    }
+                //}
 
                 //search engine name
                 model.SeName = _urlRecordService.ValidateSeName(product, model.SeName, product.Name, true);
@@ -2794,7 +2800,7 @@ namespace Nop.Web.Areas.Admin.Controllers
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageProducts))
                 return AccessDeniedView();
-
+            model.AttributeValueTypeId = 0;
             //try to get a product attribute mapping with the specified id
             var productAttributeMapping = _productAttributeService.GetProductAttributeMappingById(model.ProductAttributeMappingId);
             if (productAttributeMapping == null)
@@ -2808,27 +2814,27 @@ namespace Nop.Web.Areas.Admin.Controllers
             if (_workContext.CurrentVendor != null && product.VendorId != _workContext.CurrentVendor.Id)
                 return RedirectToAction("List", "Product");
 
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares)
-            {
-                //ensure valid color is chosen/entered
-                if (string.IsNullOrEmpty(model.ColorSquaresRgb))
-                    ModelState.AddModelError(string.Empty, "Color is required");
-                try
-                {
-                    //ensure color is valid (can be instantiated)
-                    System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
-                }
-                catch (Exception exc)
-                {
-                    ModelState.AddModelError(string.Empty, exc.Message);
-                }
-            }
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares)
+            //{
+            //    //ensure valid color is chosen/entered
+            //    if (string.IsNullOrEmpty(model.ColorSquaresRgb))
+            //        ModelState.AddModelError(string.Empty, "Color is required");
+            //    try
+            //    {
+            //        //ensure color is valid (can be instantiated)
+            //        System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
+            //    }
+            //    catch (Exception exc)
+            //    {
+            //        ModelState.AddModelError(string.Empty, exc.Message);
+            //    }
+            //}
 
             //ensure a picture is uploaded
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares && model.ImageSquaresPictureId == 0)
-            {
-                ModelState.AddModelError(string.Empty, "Image is required");
-            }
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares && model.ImageSquaresPictureId == 0)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Image is required");
+            //}
 
             if (ModelState.IsValid)
             {
@@ -2905,27 +2911,27 @@ namespace Nop.Web.Areas.Admin.Controllers
             if (_workContext.CurrentVendor != null && product.VendorId != _workContext.CurrentVendor.Id)
                 return RedirectToAction("List", "Product");
 
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares)
-            {
-                //ensure valid color is chosen/entered
-                if (string.IsNullOrEmpty(model.ColorSquaresRgb))
-                    ModelState.AddModelError(string.Empty, "Color is required");
-                try
-                {
-                    //ensure color is valid (can be instantiated)
-                    System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
-                }
-                catch (Exception exc)
-                {
-                    ModelState.AddModelError(string.Empty, exc.Message);
-                }
-            }
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares)
+            //{
+            //    //ensure valid color is chosen/entered
+            //    if (string.IsNullOrEmpty(model.ColorSquaresRgb))
+            //        ModelState.AddModelError(string.Empty, "Color is required");
+            //    try
+            //    {
+            //        //ensure color is valid (can be instantiated)
+            //        System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
+            //    }
+            //    catch (Exception exc)
+            //    {
+            //        ModelState.AddModelError(string.Empty, exc.Message);
+            //    }
+            //}
 
-            //ensure a picture is uploaded
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares && model.ImageSquaresPictureId == 0)
-            {
-                ModelState.AddModelError(string.Empty, "Image is required");
-            }
+            ////ensure a picture is uploaded
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares && model.ImageSquaresPictureId == 0)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Image is required");
+            //}
 
             if (ModelState.IsValid)
             {

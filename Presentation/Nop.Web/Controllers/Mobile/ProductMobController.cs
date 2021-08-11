@@ -188,6 +188,7 @@ namespace Nop.Web.Controllers.Mobile
                 ProductPrice = model.ProductPrice,
                 AddToCart = model.AddToCart,
                 Breadcrumb = model.Breadcrumb,
+                ProductAttributes = model.ProductAttributes,
                 ProductTags = model.ProductTags,
                 ProductReviewOverview = model.ProductReviewOverview
             };

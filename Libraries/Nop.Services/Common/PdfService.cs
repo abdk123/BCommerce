@@ -1608,49 +1608,49 @@ namespace Nop.Services.Common
                     productTable.AddCell(new Paragraph(" "));
                 }
 
-                if (product.ProductType == ProductType.GroupedProduct)
-                {
-                    //grouped product. render its associated products
-                    var pvNum = 1;
-                    foreach (var associatedProduct in _productService.GetAssociatedProducts(product.Id, showHidden: true))
-                    {
-                        productTable.AddCell(new Paragraph($"{productNumber}-{pvNum}. {_localizationService.GetLocalized(associatedProduct, x => x.Name, lang.Id)}", font));
-                        productTable.AddCell(new Paragraph(" "));
+                //if (product.ProductType == ProductType.GroupedProduct)
+                //{
+                //    //grouped product. render its associated products
+                //    var pvNum = 1;
+                //    foreach (var associatedProduct in _productService.GetAssociatedProducts(product.Id, showHidden: true))
+                //    {
+                //        productTable.AddCell(new Paragraph($"{productNumber}-{pvNum}. {_localizationService.GetLocalized(associatedProduct, x => x.Name, lang.Id)}", font));
+                //        productTable.AddCell(new Paragraph(" "));
 
-                        //uncomment to render associated product description
-                        //string apDescription = associated_localizationService.GetLocalized(product, x => x.ShortDescription, lang.Id);
-                        //if (!string.IsNullOrEmpty(apDescription))
-                        //{
-                        //    productTable.AddCell(new Paragraph(HtmlHelper.StripTags(HtmlHelper.ConvertHtmlToPlainText(apDescription)), font));
-                        //    productTable.AddCell(new Paragraph(" "));
-                        //}
+                //        //uncomment to render associated product description
+                //        //string apDescription = associated_localizationService.GetLocalized(product, x => x.ShortDescription, lang.Id);
+                //        //if (!string.IsNullOrEmpty(apDescription))
+                //        //{
+                //        //    productTable.AddCell(new Paragraph(HtmlHelper.StripTags(HtmlHelper.ConvertHtmlToPlainText(apDescription)), font));
+                //        //    productTable.AddCell(new Paragraph(" "));
+                //        //}
 
-                        //uncomment to render associated product picture
-                        //var apPicture = _pictureService.GetPicturesByProductId(associatedProduct.Id).FirstOrDefault();
-                        //if (apPicture != null)
-                        //{
-                        //    var picBinary = _pictureService.LoadPictureBinary(apPicture);
-                        //    if (picBinary != null && picBinary.Length > 0)
-                        //    {
-                        //        var pictureLocalPath = _pictureService.GetThumbLocalPath(apPicture, 200, false);
-                        //        productTable.AddCell(Image.GetInstance(pictureLocalPath));
-                        //    }
-                        //}
+                //        //uncomment to render associated product picture
+                //        //var apPicture = _pictureService.GetPicturesByProductId(associatedProduct.Id).FirstOrDefault();
+                //        //if (apPicture != null)
+                //        //{
+                //        //    var picBinary = _pictureService.LoadPictureBinary(apPicture);
+                //        //    if (picBinary != null && picBinary.Length > 0)
+                //        //    {
+                //        //        var pictureLocalPath = _pictureService.GetThumbLocalPath(apPicture, 200, false);
+                //        //        productTable.AddCell(Image.GetInstance(pictureLocalPath));
+                //        //    }
+                //        //}
 
-                        productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.Price", lang.Id)}: {associatedProduct.Price:0.00} {_currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId).CurrencyCode}", font));
-                        productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.SKU", lang.Id)}: {associatedProduct.Sku}", font));
+                //        productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.Price", lang.Id)}: {associatedProduct.Price:0.00} {_currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId).CurrencyCode}", font));
+                //        productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.SKU", lang.Id)}: {associatedProduct.Sku}", font));
 
-                        if (associatedProduct.IsShipEnabled && associatedProduct.Weight > decimal.Zero)
-                            productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.Weight", lang.Id)}: {associatedProduct.Weight:0.00} {_measureService.GetMeasureWeightById(_measureSettings.BaseWeightId).Name}", font));
+                //        if (associatedProduct.IsShipEnabled && associatedProduct.Weight > decimal.Zero)
+                //            productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.Weight", lang.Id)}: {associatedProduct.Weight:0.00} {_measureService.GetMeasureWeightById(_measureSettings.BaseWeightId).Name}", font));
 
-                        if (associatedProduct.ManageInventoryMethod == ManageInventoryMethod.ManageStock)
-                            productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.StockQuantity", lang.Id)}: {_productService.GetTotalStockQuantity(associatedProduct)}", font));
+                //        if (associatedProduct.ManageInventoryMethod == ManageInventoryMethod.ManageStock)
+                //            productTable.AddCell(new Paragraph($"{_localizationService.GetResource("PDFProductCatalog.StockQuantity", lang.Id)}: {_productService.GetTotalStockQuantity(associatedProduct)}", font));
 
-                        productTable.AddCell(new Paragraph(" "));
+                //        productTable.AddCell(new Paragraph(" "));
 
-                        pvNum++;
-                    }
-                }
+                //        pvNum++;
+                //    }
+                //}
 
                 doc.Add(productTable);
 

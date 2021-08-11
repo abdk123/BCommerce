@@ -72,5 +72,6 @@ namespace Nop.Web.Factories.Mobile
         /// <param name="product">Product</param>
         /// <returns>List of product specification model</returns>
         IList<ProductSpecificationMobModel> PrepareProductSpecificationModel(Product product);
+        //string GetProductAttributesXml(Product product, List<Nop.Web.Models.Mobile.ShoppingCart.ProductAttribute> attributes, List<string> errors);
     }
 }

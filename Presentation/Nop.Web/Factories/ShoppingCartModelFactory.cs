@@ -277,8 +277,8 @@ namespace Nop.Web.Factories
                     case AttributeControlType.DropdownList:
                     case AttributeControlType.RadioList:
                     case AttributeControlType.Checkboxes:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
                     {
                         if (!string.IsNullOrEmpty(selectedCheckoutAttributes))
                         {
@@ -297,59 +297,59 @@ namespace Nop.Web.Factories
                     }
 
                         break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                    {
-                        //do nothing
-                        //values are already pre-set
-                    }
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //{
+                    //    //do nothing
+                    //    //values are already pre-set
+                    //}
 
-                        break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                    {
-                        if (!string.IsNullOrEmpty(selectedCheckoutAttributes))
-                        {
-                            var enteredText =
-                                _checkoutAttributeParser.ParseValues(selectedCheckoutAttributes, attribute.Id);
-                            if (enteredText.Any())
-                                attributeModel.DefaultValue = enteredText[0];
-                        }
-                    }
+                    //    break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //{
+                    //    if (!string.IsNullOrEmpty(selectedCheckoutAttributes))
+                    //    {
+                    //        var enteredText =
+                    //            _checkoutAttributeParser.ParseValues(selectedCheckoutAttributes, attribute.Id);
+                    //        if (enteredText.Any())
+                    //            attributeModel.DefaultValue = enteredText[0];
+                    //    }
+                    //}
 
-                        break;
-                    case AttributeControlType.Datepicker:
-                    {
-                        //keep in mind my that the code below works only in the current culture
-                        var selectedDateStr =
-                            _checkoutAttributeParser.ParseValues(selectedCheckoutAttributes, attribute.Id);
-                        if (selectedDateStr.Any())
-                        {
-                            if (DateTime.TryParseExact(selectedDateStr[0], "D", CultureInfo.CurrentCulture,
-                                DateTimeStyles.None, out var selectedDate))
-                            {
-                                //successfully parsed
-                                attributeModel.SelectedDay = selectedDate.Day;
-                                attributeModel.SelectedMonth = selectedDate.Month;
-                                attributeModel.SelectedYear = selectedDate.Year;
-                            }
-                        }
-                    }
+                    //    break;
+                    //case AttributeControlType.Datepicker:
+                    //{
+                    //    //keep in mind my that the code below works only in the current culture
+                    //    var selectedDateStr =
+                    //        _checkoutAttributeParser.ParseValues(selectedCheckoutAttributes, attribute.Id);
+                    //    if (selectedDateStr.Any())
+                    //    {
+                    //        if (DateTime.TryParseExact(selectedDateStr[0], "D", CultureInfo.CurrentCulture,
+                    //            DateTimeStyles.None, out var selectedDate))
+                    //        {
+                    //            //successfully parsed
+                    //            attributeModel.SelectedDay = selectedDate.Day;
+                    //            attributeModel.SelectedMonth = selectedDate.Month;
+                    //            attributeModel.SelectedYear = selectedDate.Year;
+                    //        }
+                    //    }
+                    //}
 
-                        break;
-                    case AttributeControlType.FileUpload:
-                    {
-                        if (!string.IsNullOrEmpty(selectedCheckoutAttributes))
-                        {
-                            var downloadGuidStr = _checkoutAttributeParser
-                                .ParseValues(selectedCheckoutAttributes, attribute.Id).FirstOrDefault();
-                            Guid.TryParse(downloadGuidStr, out var downloadGuid);
-                            var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                            if (download != null)
-                                attributeModel.DefaultValue = download.DownloadGuid.ToString();
-                        }
-                    }
+                    //    break;
+                    //case AttributeControlType.FileUpload:
+                    //{
+                    //    if (!string.IsNullOrEmpty(selectedCheckoutAttributes))
+                    //    {
+                    //        var downloadGuidStr = _checkoutAttributeParser
+                    //            .ParseValues(selectedCheckoutAttributes, attribute.Id).FirstOrDefault();
+                    //        Guid.TryParse(downloadGuidStr, out var downloadGuid);
+                    //        var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                    //        if (download != null)
+                    //            attributeModel.DefaultValue = download.DownloadGuid.ToString();
+                    //    }
+                    //}
 
-                        break;
+                    //    break;
                     default:
                         break;
                 }

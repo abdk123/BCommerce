@@ -232,8 +232,8 @@ namespace Nop.Services.Catalog
                 {
                     case AttributeControlType.DropdownList:
                     case AttributeControlType.RadioList:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
                         {
                             var ctrlAttributes = form[controlId];
                             if (!StringValues.IsNullOrEmpty(ctrlAttributes))
@@ -279,66 +279,66 @@ namespace Nop.Services.Catalog
                             }
                         }
                         break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                        {
-                            //load read-only (already server-side selected) values
-                            var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
-                            foreach (var selectedAttributeId in attributeValues
-                                .Where(v => v.IsPreSelected)
-                                .Select(v => v.Id)
-                                .ToList())
-                            {
-                                //get quantity entered by customer
-                                var quantity = 1;
-                                var quantityStr = form[$"{NopCatalogDefaults.ProductAttributePrefix}{attribute.Id}_{selectedAttributeId}_qty"];
-                                if (!StringValues.IsNullOrEmpty(quantityStr) &&
-                                    (!int.TryParse(quantityStr, out quantity) || quantity < 1))
-                                    errors.Add(_localizationService.GetResource("Products.QuantityShouldBePositive"));
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //    {
+                    //        //load read-only (already server-side selected) values
+                    //        var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
+                    //        foreach (var selectedAttributeId in attributeValues
+                    //            .Where(v => v.IsPreSelected)
+                    //            .Select(v => v.Id)
+                    //            .ToList())
+                    //        {
+                    //            //get quantity entered by customer
+                    //            var quantity = 1;
+                    //            var quantityStr = form[$"{NopCatalogDefaults.ProductAttributePrefix}{attribute.Id}_{selectedAttributeId}_qty"];
+                    //            if (!StringValues.IsNullOrEmpty(quantityStr) &&
+                    //                (!int.TryParse(quantityStr, out quantity) || quantity < 1))
+                    //                errors.Add(_localizationService.GetResource("Products.QuantityShouldBePositive"));
 
-                                attributesXml = AddProductAttribute(attributesXml,
-                                    attribute, selectedAttributeId.ToString(), quantity > 1 ? (int?)quantity : null);
-                            }
-                        }
-                        break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                        {
-                            var ctrlAttributes = form[controlId];
-                            if (!StringValues.IsNullOrEmpty(ctrlAttributes))
-                            {
-                                var enteredText = ctrlAttributes.ToString().Trim();
-                                attributesXml = AddProductAttribute(attributesXml, attribute, enteredText);
-                            }
-                        }
-                        break;
-                    case AttributeControlType.Datepicker:
-                        {
-                            var day = form[controlId + "_day"];
-                            var month = form[controlId + "_month"];
-                            var year = form[controlId + "_year"];
-                            DateTime? selectedDate = null;
-                            try
-                            {
-                                selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(day));
-                            }
-                            catch
-                            {
-                            }
-                            if (selectedDate.HasValue)
-                                attributesXml = AddProductAttribute(attributesXml, attribute, selectedDate.Value.ToString("D"));
-                        }
-                        break;
-                    case AttributeControlType.FileUpload:
-                        {
-                            Guid.TryParse(form[controlId], out var downloadGuid);
-                            var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                            if (download != null)
-                            {
-                                attributesXml = AddProductAttribute(attributesXml,
-                                    attribute, download.DownloadGuid.ToString());
-                            }
-                        }
-                        break;
+                    //            attributesXml = AddProductAttribute(attributesXml,
+                    //                attribute, selectedAttributeId.ToString(), quantity > 1 ? (int?)quantity : null);
+                    //        }
+                    //    }
+                    //    break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //    {
+                    //        var ctrlAttributes = form[controlId];
+                    //        if (!StringValues.IsNullOrEmpty(ctrlAttributes))
+                    //        {
+                    //            var enteredText = ctrlAttributes.ToString().Trim();
+                    //            attributesXml = AddProductAttribute(attributesXml, attribute, enteredText);
+                    //        }
+                    //    }
+                    //    break;
+                    //case AttributeControlType.Datepicker:
+                    //    {
+                    //        var day = form[controlId + "_day"];
+                    //        var month = form[controlId + "_month"];
+                    //        var year = form[controlId + "_year"];
+                    //        DateTime? selectedDate = null;
+                    //        try
+                    //        {
+                    //            selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(day));
+                    //        }
+                    //        catch
+                    //        {
+                    //        }
+                    //        if (selectedDate.HasValue)
+                    //            attributesXml = AddProductAttribute(attributesXml, attribute, selectedDate.Value.ToString("D"));
+                    //    }
+                    //    break;
+                    //case AttributeControlType.FileUpload:
+                    //    {
+                    //        Guid.TryParse(form[controlId], out var downloadGuid);
+                    //        var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                    //        if (download != null)
+                    //        {
+                    //            attributesXml = AddProductAttribute(attributesXml,
+                    //                attribute, download.DownloadGuid.ToString());
+                    //        }
+                    //    }
+                    //    break;
                     default:
                         break;
                 }
@@ -805,9 +805,10 @@ namespace Nop.Services.Catalog
                     if (!attributeValues.Any())
                         continue;
 
-                    var isCheckbox = productAttributeMapping.AttributeControlType == AttributeControlType.Checkboxes ||
-                                     productAttributeMapping.AttributeControlType ==
-                                     AttributeControlType.ReadonlyCheckboxes;
+                    var isCheckbox = productAttributeMapping.AttributeControlType == AttributeControlType.Checkboxes;
+                    //||
+                                     //productAttributeMapping.AttributeControlType ==
+                                     //AttributeControlType.ReadonlyCheckboxes;
 
                     var currentAttributesXml = new List<string>();
 

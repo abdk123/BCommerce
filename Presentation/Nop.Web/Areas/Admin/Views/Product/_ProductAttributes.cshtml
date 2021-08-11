@@ -40,8 +40,8 @@
                             }
                             break;
                         case AttributeControlType.RadioList:
-                        case AttributeControlType.ColorSquares:
-                        case AttributeControlType.ImageSquares:
+                            //case AttributeControlType.ColorSquares:
+                            //case AttributeControlType.ImageSquares:
                             {
                                 foreach (var attributeValue in attribute.Values)
                                 {
@@ -55,20 +55,20 @@
                             }
                             break;
                         case AttributeControlType.Checkboxes:
-                        case AttributeControlType.ReadonlyCheckboxes:
+                        //case AttributeControlType.ReadonlyCheckboxes:
                             {
                                 foreach (var attributeValue in attribute.Values)
                                 {
                                     <div class="checkbox">
                                         <label>
-                                            <input id="@(controlId)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" @(attribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ? Html.Raw(" disabled=\"disabled\"") : null) />
+                                            <input id="@(controlId)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected"/>
                                             @attributeValue.Name
                                         </label>
                                     </div>
                                 }
                             }
                             break;
-                        case AttributeControlType.TextBox:
+                        @*case AttributeControlType.TextBox:
                             {
                                 <input name="@(controlId)" type="text" id="@(controlId)" class="form-control" />
                             }
@@ -93,7 +93,7 @@
                             {
                                 <input type="file" id="@(controlId)" name="@(controlId)" class="form-control" />
                             }
-                            break;
+                            break;*@
                     }
                     <div class="input-group-btn">
                         @if (attribute.IsRequired)

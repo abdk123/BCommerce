@@ -111,47 +111,47 @@ namespace Nop.Services.Catalog
                         foreach (var value in _productAttributeParser.ParseValues(attributesXml, attribute.Id))
                         {
                             var formattedAttribute = string.Empty;
-                            if (attribute.AttributeControlType == AttributeControlType.MultilineTextbox)
-                            {
-                                //encode (if required)
-                                if (htmlEncode)
-                                    attributeName = WebUtility.HtmlEncode(attributeName);
+                            //if (attribute.AttributeControlType == AttributeControlType.MultilineTextbox)
+                            //{
+                            //    //encode (if required)
+                            //    if (htmlEncode)
+                            //        attributeName = WebUtility.HtmlEncode(attributeName);
 
-                                //we never encode multiline textbox input
-                                formattedAttribute = $"{attributeName}: {HtmlHelper.FormatText(value, false, true, false, false, false, false)}";
-                            }
-                            else if (attribute.AttributeControlType == AttributeControlType.FileUpload)
-                            {
-                                //file upload
-                                Guid.TryParse(value, out var downloadGuid);
-                                var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                                if (download != null)
-                                {
-                                    var fileName = $"{download.Filename ?? download.DownloadGuid.ToString()}{download.Extension}";
+                            //    //we never encode multiline textbox input
+                            //    formattedAttribute = $"{attributeName}: {HtmlHelper.FormatText(value, false, true, false, false, false, false)}";
+                            //}
+                            //else if (attribute.AttributeControlType == AttributeControlType.FileUpload)
+                            //{
+                            //    //file upload
+                            //    Guid.TryParse(value, out var downloadGuid);
+                            //    var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                            //    if (download != null)
+                            //    {
+                            //        var fileName = $"{download.Filename ?? download.DownloadGuid.ToString()}{download.Extension}";
 
-                                    //encode (if required)
-                                    if (htmlEncode)
-                                        fileName = WebUtility.HtmlEncode(fileName);
+                            //        //encode (if required)
+                            //        if (htmlEncode)
+                            //            fileName = WebUtility.HtmlEncode(fileName);
 
-                                    var attributeText = allowHyperlinks ? $"<a href=\"{_webHelper.GetStoreLocation(false)}download/getfileupload/?downloadId={download.DownloadGuid}\" class=\"fileuploadattribute\">{fileName}</a>"
-                                        : fileName;
+                            //        var attributeText = allowHyperlinks ? $"<a href=\"{_webHelper.GetStoreLocation(false)}download/getfileupload/?downloadId={download.DownloadGuid}\" class=\"fileuploadattribute\">{fileName}</a>"
+                            //            : fileName;
 
-                                    //encode (if required)
-                                    if (htmlEncode)
-                                        attributeName = WebUtility.HtmlEncode(attributeName);
+                            //        //encode (if required)
+                            //        if (htmlEncode)
+                            //            attributeName = WebUtility.HtmlEncode(attributeName);
 
-                                    formattedAttribute = $"{attributeName}: {attributeText}";
-                                }
-                            }
-                            else
-                            {
+                            //        formattedAttribute = $"{attributeName}: {attributeText}";
+                            //    }
+                            //}
+                            //else
+                            //{
                                 //other attributes (textbox, datepicker)
                                 formattedAttribute = $"{attributeName}: {value}";
 
                                 //encode (if required)
                                 if (htmlEncode)
                                     formattedAttribute = WebUtility.HtmlEncode(formattedAttribute);
-                            }
+                            //}
 
                             if (string.IsNullOrEmpty(formattedAttribute))
                                 continue;

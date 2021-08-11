@@ -101,55 +101,55 @@ namespace Nop.Services.Orders
                     if (!attribute.ShouldHaveValues())
                     {
                         //no values
-                        if (attribute.AttributeControlType == AttributeControlType.MultilineTextbox)
-                        {
-                            //multiline textbox
-                            var attributeName = _localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id);
-                            //encode (if required)
-                            if (htmlEncode)
-                                attributeName = WebUtility.HtmlEncode(attributeName);
-                            formattedAttribute = $"{attributeName}: {HtmlHelper.FormatText(valueStr, false, true, false, false, false, false)}";
-                            //we never encode multiline textbox input
-                        }
-                        else if (attribute.AttributeControlType == AttributeControlType.FileUpload)
-                        {
-                            //file upload
-                            Guid.TryParse(valueStr, out var downloadGuid);
-                            var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                            if (download != null)
-                            {
-                                string attributeText;
-                                var fileName = $"{download.Filename ?? download.DownloadGuid.ToString()}{download.Extension}";
-                                //encode (if required)
-                                if (htmlEncode)
-                                    fileName = WebUtility.HtmlEncode(fileName);
-                                if (allowHyperlinks)
-                                {
-                                    //hyperlinks are allowed
-                                    var downloadLink = $"{_webHelper.GetStoreLocation(false)}download/getfileupload/?downloadId={download.DownloadGuid}";
-                                    attributeText = $"<a href=\"{downloadLink}\" class=\"fileuploadattribute\">{fileName}</a>";
-                                }
-                                else
-                                {
-                                    //hyperlinks aren't allowed
-                                    attributeText = fileName;
-                                }
+                        //if (attribute.AttributeControlType == AttributeControlType.MultilineTextbox)
+                        //{
+                        //    //multiline textbox
+                        //    var attributeName = _localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id);
+                        //    //encode (if required)
+                        //    if (htmlEncode)
+                        //        attributeName = WebUtility.HtmlEncode(attributeName);
+                        //    formattedAttribute = $"{attributeName}: {HtmlHelper.FormatText(valueStr, false, true, false, false, false, false)}";
+                        //    //we never encode multiline textbox input
+                        //}
+                        //else if (attribute.AttributeControlType == AttributeControlType.FileUpload)
+                        //{
+                        //    //file upload
+                        //    Guid.TryParse(valueStr, out var downloadGuid);
+                        //    var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                        //    if (download != null)
+                        //    {
+                        //        string attributeText;
+                        //        var fileName = $"{download.Filename ?? download.DownloadGuid.ToString()}{download.Extension}";
+                        //        //encode (if required)
+                        //        if (htmlEncode)
+                        //            fileName = WebUtility.HtmlEncode(fileName);
+                        //        if (allowHyperlinks)
+                        //        {
+                        //            //hyperlinks are allowed
+                        //            var downloadLink = $"{_webHelper.GetStoreLocation(false)}download/getfileupload/?downloadId={download.DownloadGuid}";
+                        //            attributeText = $"<a href=\"{downloadLink}\" class=\"fileuploadattribute\">{fileName}</a>";
+                        //        }
+                        //        else
+                        //        {
+                        //            //hyperlinks aren't allowed
+                        //            attributeText = fileName;
+                        //        }
 
-                                var attributeName = _localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id);
-                                //encode (if required)
-                                if (htmlEncode)
-                                    attributeName = WebUtility.HtmlEncode(attributeName);
-                                formattedAttribute = $"{attributeName}: {attributeText}";
-                            }
-                        }
-                        else
-                        {
+                        //        var attributeName = _localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id);
+                        //        //encode (if required)
+                        //        if (htmlEncode)
+                        //            attributeName = WebUtility.HtmlEncode(attributeName);
+                        //        formattedAttribute = $"{attributeName}: {attributeText}";
+                        //    }
+                        //}
+                        //else
+                        //{
                             //other attributes (textbox, datepicker)
                             formattedAttribute = $"{_localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id)}: {valueStr}";
                             //encode (if required)
                             if (htmlEncode)
                                 formattedAttribute = WebUtility.HtmlEncode(formattedAttribute);
-                        }
+                        //}
                     }
                     else
                     {

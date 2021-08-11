@@ -42,21 +42,21 @@
                         }
                     }
                     break;
-                case AttributeControlType.Checkboxes:
-                case AttributeControlType.ReadonlyCheckboxes:
+               case AttributeControlType.Checkboxes:
+               // case AttributeControlType.ReadonlyCheckboxes:
                     {
                         foreach (var attributeValue in attribute.Values)
                         {
                             <div class="checkbox">
                                 <label>
-                                    <input id="@(controlId)_@(attributeValue.Id)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" @(attribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ? Html.Raw(" disabled=\"disabled\"") : null) />
+                                    <input id="@(controlId)_@(attributeValue.Id)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" />
                                     @attributeValue.Name
                                 </label>
                             </div>
                         }
                     }
                     break;
-                case AttributeControlType.TextBox:
+                @*case AttributeControlType.TextBox:
                     {
                         <input name="@(controlId)" type="text" class="form-control" id="@(controlId)" value="@(attribute.DefaultValue)" />
                     }
@@ -65,11 +65,11 @@
                     {
                         <textarea id="@(controlId)" class="form-control" name="@(controlId)">@(attribute.DefaultValue)</textarea>
                     }
-                    break;
-                case AttributeControlType.Datepicker:
-                case AttributeControlType.FileUpload:
-                case AttributeControlType.ColorSquares:
-                case AttributeControlType.ImageSquares:
+                    break;*@
+                    //case AttributeControlType.Datepicker:
+                    //case AttributeControlType.FileUpload:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
                     {
                         //not support attribute type
                     }

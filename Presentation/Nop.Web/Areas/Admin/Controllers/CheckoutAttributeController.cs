@@ -148,8 +148,8 @@ namespace Nop.Web.Areas.Admin.Controllers
                     {
                         case AttributeControlType.DropdownList:
                         case AttributeControlType.RadioList:
-                        case AttributeControlType.ColorSquares:
-                        case AttributeControlType.ImageSquares:
+                        //case AttributeControlType.ColorSquares:
+                        //case AttributeControlType.ImageSquares:
                             {
                                 var selectedAttribute = model.ConditionModel.ConditionAttributes
                                     .FirstOrDefault(x => x.Id == model.ConditionModel.SelectedAttributeId);
@@ -177,11 +177,11 @@ namespace Nop.Web.Areas.Admin.Controllers
                                     attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(null, attribute, string.Empty);
                             }
                             break;
-                        case AttributeControlType.ReadonlyCheckboxes:
-                        case AttributeControlType.TextBox:
-                        case AttributeControlType.MultilineTextbox:
-                        case AttributeControlType.Datepicker:
-                        case AttributeControlType.FileUpload:
+                        //case AttributeControlType.ReadonlyCheckboxes:
+                        //case AttributeControlType.TextBox:
+                        //case AttributeControlType.MultilineTextbox:
+                        //case AttributeControlType.Datepicker:
+                        //case AttributeControlType.FileUpload:
                         default:
                             //these attribute types are not supported as conditions
                             break;
@@ -424,22 +424,22 @@ namespace Nop.Web.Areas.Admin.Controllers
             model.PrimaryStoreCurrencyCode = _currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId).CurrencyCode;
             model.BaseWeightIn = _measureService.GetMeasureWeightById(_measureSettings.BaseWeightId).Name;
 
-            if (checkoutAttribute.AttributeControlType == AttributeControlType.ColorSquares)
-            {
-                //ensure valid color is chosen/entered
-                if (string.IsNullOrEmpty(model.ColorSquaresRgb))
-                    ModelState.AddModelError(string.Empty, "Color is required");
+            //if (checkoutAttribute.AttributeControlType == AttributeControlType.ColorSquares)
+            //{
+            //    //ensure valid color is chosen/entered
+            //    if (string.IsNullOrEmpty(model.ColorSquaresRgb))
+            //        ModelState.AddModelError(string.Empty, "Color is required");
 
-                try
-                {
-                    //ensure color is valid (can be instantiated)
-                    System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
-                }
-                catch (Exception exc)
-                {
-                    ModelState.AddModelError(string.Empty, exc.Message);
-                }
-            }
+            //    try
+            //    {
+            //        //ensure color is valid (can be instantiated)
+            //        System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
+            //    }
+            //    catch (Exception exc)
+            //    {
+            //        ModelState.AddModelError(string.Empty, exc.Message);
+            //    }
+            //}
 
             if (ModelState.IsValid)
             {
@@ -500,22 +500,22 @@ namespace Nop.Web.Areas.Admin.Controllers
             model.PrimaryStoreCurrencyCode = _currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId).CurrencyCode;
             model.BaseWeightIn = _measureService.GetMeasureWeightById(_measureSettings.BaseWeightId).Name;
 
-            if (checkoutAttribute.AttributeControlType == AttributeControlType.ColorSquares)
-            {
-                //ensure valid color is chosen/entered
-                if (string.IsNullOrEmpty(model.ColorSquaresRgb))
-                    ModelState.AddModelError(string.Empty, "Color is required");
+            //if (checkoutAttribute.AttributeControlType == AttributeControlType.ColorSquares)
+            //{
+            //    //ensure valid color is chosen/entered
+            //    if (string.IsNullOrEmpty(model.ColorSquaresRgb))
+            //        ModelState.AddModelError(string.Empty, "Color is required");
 
-                try
-                {
-                    //ensure color is valid (can be instantiated)
-                    System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
-                }
-                catch (Exception exc)
-                {
-                    ModelState.AddModelError(string.Empty, exc.Message);
-                }
-            }
+            //    try
+            //    {
+            //        //ensure color is valid (can be instantiated)
+            //        System.Drawing.ColorTranslator.FromHtml(model.ColorSquaresRgb);
+            //    }
+            //    catch (Exception exc)
+            //    {
+            //        ModelState.AddModelError(string.Empty, exc.Message);
+            //    }
+            //}
 
             if (ModelState.IsValid)
             {

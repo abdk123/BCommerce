@@ -18,11 +18,11 @@ namespace Nop.Services.Customers
             if (customerAttribute == null)
                 return false;
 
-            if (customerAttribute.AttributeControlType == AttributeControlType.TextBox ||
-                customerAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                customerAttribute.AttributeControlType == AttributeControlType.Datepicker ||
-                customerAttribute.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (customerAttribute.AttributeControlType == AttributeControlType.TextBox ||
+            //    customerAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    customerAttribute.AttributeControlType == AttributeControlType.Datepicker ||
+            //    customerAttribute.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support values
             return true;

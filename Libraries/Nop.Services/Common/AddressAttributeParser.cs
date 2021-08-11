@@ -326,27 +326,27 @@ namespace Nop.Services.Common
 
                         break;
 
-                    case AttributeControlType.ReadonlyCheckboxes:
-                        //load read-only (already server-side selected) values
-                        var addressAttributeValues = _addressAttributeService.GetAddressAttributeValues(attribute.Id);
-                        foreach (var addressAttributeValue in addressAttributeValues)
-                        {
-                            if (addressAttributeValue.IsPreSelected)
-                                attributesXml = AddAddressAttribute(attributesXml, attribute, addressAttributeValue.Id.ToString());
-                        }
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //    //load read-only (already server-side selected) values
+                    //    var addressAttributeValues = _addressAttributeService.GetAddressAttributeValues(attribute.Id);
+                    //    foreach (var addressAttributeValue in addressAttributeValues)
+                    //    {
+                    //        if (addressAttributeValue.IsPreSelected)
+                    //            attributesXml = AddAddressAttribute(attributesXml, attribute, addressAttributeValue.Id.ToString());
+                    //    }
 
-                        break;
+                    //    break;
 
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                        if (!StringValues.IsNullOrEmpty(attributeValues))
-                            attributesXml = AddAddressAttribute(attributesXml, attribute, attributeValues.ToString().Trim());
-                        break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //    if (!StringValues.IsNullOrEmpty(attributeValues))
+                    //        attributesXml = AddAddressAttribute(attributesXml, attribute, attributeValues.ToString().Trim());
+                    //    break;
 
-                    case AttributeControlType.Datepicker:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
-                    case AttributeControlType.FileUpload:
+                    //case AttributeControlType.Datepicker:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.FileUpload:
                     default:
                         break;
                 }

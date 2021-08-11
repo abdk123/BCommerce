@@ -767,8 +767,8 @@ namespace Nop.Services.Orders
                     }
                 }
 
-                if (a2.AttributeControlType != AttributeControlType.ReadonlyCheckboxes)
-                    continue;
+                //if (a2.AttributeControlType != AttributeControlType.ReadonlyCheckboxes)
+                //    continue;
 
                 //customers cannot edit read-only attributes
                 var allowedReadOnlyValueIds = _productAttributeService.GetProductAttributeValues(a2.Id)
@@ -799,27 +799,27 @@ namespace Nop.Services.Orders
                 var productAttribute = _productAttributeService.GetProductAttributeById(pam.ProductAttributeId);
 
                 //minimum length
-                if (pam.ValidationMinLength.HasValue)
-                {
-                    if (pam.AttributeControlType == AttributeControlType.TextBox ||
-                        pam.AttributeControlType == AttributeControlType.MultilineTextbox)
-                    {
-                        enteredText = _productAttributeParser.ParseValues(attributesXml, pam.Id).FirstOrDefault();
-                        enteredTextLength = string.IsNullOrEmpty(enteredText) ? 0 : enteredText.Length;
+                //if (pam.ValidationMinLength.HasValue)
+                //{
+                //    if (pam.AttributeControlType == AttributeControlType.TextBox ||
+                //        pam.AttributeControlType == AttributeControlType.MultilineTextbox)
+                //    {
+                //        enteredText = _productAttributeParser.ParseValues(attributesXml, pam.Id).FirstOrDefault();
+                //        enteredTextLength = string.IsNullOrEmpty(enteredText) ? 0 : enteredText.Length;
 
-                        if (pam.ValidationMinLength.Value > enteredTextLength)
-                        {
-                            warnings.Add(string.Format(_localizationService.GetResource("ShoppingCart.TextboxMinimumLength"), _localizationService.GetLocalized(productAttribute, a => a.Name), pam.ValidationMinLength.Value));
-                        }
-                    }
-                }
+                //        if (pam.ValidationMinLength.Value > enteredTextLength)
+                //        {
+                //            warnings.Add(string.Format(_localizationService.GetResource("ShoppingCart.TextboxMinimumLength"), _localizationService.GetLocalized(productAttribute, a => a.Name), pam.ValidationMinLength.Value));
+                //        }
+                //    }
+                //}
 
                 //maximum length
                 if (!pam.ValidationMaxLength.HasValue)
                     continue;
 
-                if (pam.AttributeControlType != AttributeControlType.TextBox && pam.AttributeControlType != AttributeControlType.MultilineTextbox)
-                    continue;
+                //if (pam.AttributeControlType != AttributeControlType.TextBox && pam.AttributeControlType != AttributeControlType.MultilineTextbox)
+                //    continue;
 
                 enteredText = _productAttributeParser.ParseValues(attributesXml, pam.Id).FirstOrDefault();
                 enteredTextLength = string.IsNullOrEmpty(enteredText) ? 0 : enteredText.Length;
@@ -1132,27 +1132,27 @@ namespace Nop.Services.Orders
                 string enteredText;
                 int enteredTextLength;
 
-                if (ca.ValidationMinLength.HasValue)
-                {
-                    if (ca.AttributeControlType == AttributeControlType.TextBox ||
-                        ca.AttributeControlType == AttributeControlType.MultilineTextbox)
-                    {
-                        enteredText = _checkoutAttributeParser.ParseValues(checkoutAttributesXml, ca.Id).FirstOrDefault();
-                        enteredTextLength = string.IsNullOrEmpty(enteredText) ? 0 : enteredText.Length;
+                //if (ca.ValidationMinLength.HasValue)
+                //{
+                //    if (ca.AttributeControlType == AttributeControlType.TextBox ||
+                //        ca.AttributeControlType == AttributeControlType.MultilineTextbox)
+                //    {
+                //        enteredText = _checkoutAttributeParser.ParseValues(checkoutAttributesXml, ca.Id).FirstOrDefault();
+                //        enteredTextLength = string.IsNullOrEmpty(enteredText) ? 0 : enteredText.Length;
 
-                        if (ca.ValidationMinLength.Value > enteredTextLength)
-                        {
-                            warnings.Add(string.Format(_localizationService.GetResource("ShoppingCart.TextboxMinimumLength"), _localizationService.GetLocalized(ca, a => a.Name), ca.ValidationMinLength.Value));
-                        }
-                    }
-                }
+                //        if (ca.ValidationMinLength.Value > enteredTextLength)
+                //        {
+                //            warnings.Add(string.Format(_localizationService.GetResource("ShoppingCart.TextboxMinimumLength"), _localizationService.GetLocalized(ca, a => a.Name), ca.ValidationMinLength.Value));
+                //        }
+                //    }
+                //}
 
                 //maximum length
                 if (!ca.ValidationMaxLength.HasValue)
                     continue;
 
-                if (ca.AttributeControlType != AttributeControlType.TextBox && ca.AttributeControlType != AttributeControlType.MultilineTextbox)
-                    continue;
+                //if (ca.AttributeControlType != AttributeControlType.TextBox && ca.AttributeControlType != AttributeControlType.MultilineTextbox)
+                //    continue;
 
                 enteredText = _checkoutAttributeParser.ParseValues(checkoutAttributesXml, ca.Id).FirstOrDefault();
                 enteredTextLength = string.IsNullOrEmpty(enteredText) ? 0 : enteredText.Length;

@@ -63,29 +63,29 @@ namespace Nop.Services.Common
                     if (!attribute.ShouldHaveValues())
                     {
                         //no values
-                        if (attribute.AttributeControlType == AttributeControlType.MultilineTextbox)
-                        {
-                            //multiline textbox
-                            var attributeName = _localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id);
-                            //encode (if required)
-                            if (htmlEncode)
-                                attributeName = WebUtility.HtmlEncode(attributeName);
-                            formattedAttribute = $"{attributeName}: {HtmlHelper.FormatText(valueStr, false, true, false, false, false, false)}";
-                            //we never encode multiline textbox input
-                        }
-                        else if (attribute.AttributeControlType == AttributeControlType.FileUpload)
-                        {
-                            //file upload
-                            //not supported for address attributes
-                        }
-                        else
-                        {
+                        //if (attribute.AttributeControlType == AttributeControlType.MultilineTextbox)
+                        //{
+                        //    //multiline textbox
+                        //    var attributeName = _localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id);
+                        //    //encode (if required)
+                        //    if (htmlEncode)
+                        //        attributeName = WebUtility.HtmlEncode(attributeName);
+                        //    formattedAttribute = $"{attributeName}: {HtmlHelper.FormatText(valueStr, false, true, false, false, false, false)}";
+                        //    //we never encode multiline textbox input
+                        //}
+                        //else if (attribute.AttributeControlType == AttributeControlType.FileUpload)
+                        //{
+                        //    //file upload
+                        //    //not supported for address attributes
+                        //}
+                        //else
+                        //{
                             //other attributes (textbox, datepicker)
                             formattedAttribute = $"{_localizationService.GetLocalized(attribute, a => a.Name, _workContext.WorkingLanguage.Id)}: {valueStr}";
                             //encode (if required)
                             if (htmlEncode)
                                 formattedAttribute = WebUtility.HtmlEncode(formattedAttribute);
-                        }
+                        //}
                     }
                     else
                     {

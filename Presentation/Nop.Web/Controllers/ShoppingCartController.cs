@@ -177,8 +177,8 @@ namespace Nop.Web.Controllers
                 {
                     case AttributeControlType.DropdownList:
                     case AttributeControlType.RadioList:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
                         {
                             var ctrlAttributes = form[controlId];
                             if (!StringValues.IsNullOrEmpty(ctrlAttributes))
@@ -207,67 +207,67 @@ namespace Nop.Web.Controllers
                         }
 
                         break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                        {
-                            //load read-only (already server-side selected) values
-                            var attributeValues = _checkoutAttributeService.GetCheckoutAttributeValues(attribute.Id);
-                            foreach (var selectedAttributeId in attributeValues
-                                .Where(v => v.IsPreSelected)
-                                .Select(v => v.Id)
-                                .ToList())
-                            {
-                                attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
-                                            attribute, selectedAttributeId.ToString());
-                            }
-                        }
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //    {
+                    //        //load read-only (already server-side selected) values
+                    //        var attributeValues = _checkoutAttributeService.GetCheckoutAttributeValues(attribute.Id);
+                    //        foreach (var selectedAttributeId in attributeValues
+                    //            .Where(v => v.IsPreSelected)
+                    //            .Select(v => v.Id)
+                    //            .ToList())
+                    //        {
+                    //            attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
+                    //                        attribute, selectedAttributeId.ToString());
+                    //        }
+                    //    }
 
-                        break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                        {
-                            var ctrlAttributes = form[controlId];
-                            if (!StringValues.IsNullOrEmpty(ctrlAttributes))
-                            {
-                                var enteredText = ctrlAttributes.ToString().Trim();
-                                attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
-                                    attribute, enteredText);
-                            }
-                        }
+                    //    break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //    {
+                    //        var ctrlAttributes = form[controlId];
+                    //        if (!StringValues.IsNullOrEmpty(ctrlAttributes))
+                    //        {
+                    //            var enteredText = ctrlAttributes.ToString().Trim();
+                    //            attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
+                    //                attribute, enteredText);
+                    //        }
+                    //    }
 
-                        break;
-                    case AttributeControlType.Datepicker:
-                        {
-                            var date = form[controlId + "_day"];
-                            var month = form[controlId + "_month"];
-                            var year = form[controlId + "_year"];
-                            DateTime? selectedDate = null;
-                            try
-                            {
-                                selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(date));
-                            }
-                            catch
-                            {
-                                // ignored
-                            }
+                    //    break;
+                    //case AttributeControlType.Datepicker:
+                    //    {
+                    //        var date = form[controlId + "_day"];
+                    //        var month = form[controlId + "_month"];
+                    //        var year = form[controlId + "_year"];
+                    //        DateTime? selectedDate = null;
+                    //        try
+                    //        {
+                    //            selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(date));
+                    //        }
+                    //        catch
+                    //        {
+                    //            // ignored
+                    //        }
 
-                            if (selectedDate.HasValue)
-                                attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
-                                    attribute, selectedDate.Value.ToString("D"));
-                        }
+                    //        if (selectedDate.HasValue)
+                    //            attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
+                    //                attribute, selectedDate.Value.ToString("D"));
+                    //    }
 
-                        break;
-                    case AttributeControlType.FileUpload:
-                        {
-                            Guid.TryParse(form[controlId], out var downloadGuid);
-                            var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                            if (download != null)
-                            {
-                                attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
-                                           attribute, download.DownloadGuid.ToString());
-                            }
-                        }
+                    //    break;
+                    //case AttributeControlType.FileUpload:
+                    //    {
+                    //        Guid.TryParse(form[controlId], out var downloadGuid);
+                    //        var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                    //        if (download != null)
+                    //        {
+                    //            attributesXml = _checkoutAttributeParser.AddCheckoutAttribute(attributesXml,
+                    //                       attribute, download.DownloadGuid.ToString());
+                    //        }
+                    //    }
 
-                        break;
+                    //    break;
                     default:
                         break;
                 }
@@ -563,14 +563,14 @@ namespace Nop.Web.Controllers
 
             //allow a product to be added to the cart when all attributes are with "read-only checkboxes" type
             var productAttributes = _productAttributeService.GetProductAttributeMappingsByProductId(product.Id);
-            if (productAttributes.Any(pam => pam.AttributeControlType != AttributeControlType.ReadonlyCheckboxes))
-            {
-                //product has some attributes. let a customer see them
-                return Json(new
-                {
-                    redirect = Url.RouteUrl("Product", new { SeName = _urlRecordService.GetSeName(product) })
-                });
-            }
+            //if (productAttributes.Any(pam => pam.AttributeControlType != AttributeControlType.ReadonlyCheckboxes))
+            //{
+            //    //product has some attributes. let a customer see them
+            //    return Json(new
+            //    {
+            //        redirect = Url.RouteUrl("Product", new { SeName = _urlRecordService.GetSeName(product) })
+            //    });
+            //}
 
             //creating XML for "read-only checkboxes" attributes
             var attXml = productAttributes.Aggregate(string.Empty, (attributesXml, attribute) =>
@@ -974,14 +974,14 @@ namespace Nop.Web.Controllers
         public virtual IActionResult UploadFileProductAttribute(int attributeId)
         {
             var attribute = _productAttributeService.GetProductAttributeMappingById(attributeId);
-            if (attribute == null || attribute.AttributeControlType != AttributeControlType.FileUpload)
-            {
-                return Json(new
-                {
-                    success = false,
-                    downloadGuid = Guid.Empty
-                });
-            }
+            //if (attribute == null || attribute.AttributeControlType != AttributeControlType.FileUpload)
+            //{
+            //    return Json(new
+            //    {
+            //        success = false,
+            //        downloadGuid = Guid.Empty
+            //    });
+            //}
 
             var httpPostedFile = Request.Form.Files.FirstOrDefault();
             if (httpPostedFile == null)
@@ -1056,14 +1056,14 @@ namespace Nop.Web.Controllers
         public virtual IActionResult UploadFileCheckoutAttribute(int attributeId)
         {
             var attribute = _checkoutAttributeService.GetCheckoutAttributeById(attributeId);
-            if (attribute == null || attribute.AttributeControlType != AttributeControlType.FileUpload)
-            {
-                return Json(new
-                {
-                    success = false,
-                    downloadGuid = Guid.Empty
-                });
-            }
+            //if (attribute == null || attribute.AttributeControlType != AttributeControlType.FileUpload)
+            //{
+            //    return Json(new
+            //    {
+            //        success = false,
+            //        downloadGuid = Guid.Empty
+            //    });
+            //}
 
             var httpPostedFile = Request.Form.Files.FirstOrDefault();
             if (httpPostedFile == null)
