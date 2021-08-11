@@ -222,20 +222,20 @@ namespace Nop.Web.Factories
                 ForceRedirectionAfterAddingToCart = forceRedirectionAfterAddingToCart
             };
 
-            switch (product.ProductType)
-            {
-                case ProductType.GroupedProduct:
-                    //grouped product
-                    PrepareGroupedProductOverviewPriceModel(product, priceModel);
+            //switch (product.ProductType)
+            //{
+            //    case ProductType.GroupedProduct:
+            //        //grouped product
+            //        PrepareGroupedProductOverviewPriceModel(product, priceModel);
 
-                    break;
-                case ProductType.SimpleProduct:
-                default:
-                    //simple product
-                    PrepareSimpleProductOverviewPriceModel(product, priceModel);
+            //        break;
+            //    case ProductType.SimpleProduct:
+            //    default:
+            //        //simple product
+            //        PrepareSimpleProductOverviewPriceModel(product, priceModel);
 
-                    break;
-            }
+            //        break;
+            //}
 
             return priceModel;
         }
@@ -826,8 +826,8 @@ namespace Nop.Web.Factories
                         case AttributeControlType.DropdownList:
                         case AttributeControlType.RadioList:
                         case AttributeControlType.Checkboxes:
-                        case AttributeControlType.ColorSquares:
-                        case AttributeControlType.ImageSquares:
+                        //case AttributeControlType.ColorSquares:
+                        //case AttributeControlType.ImageSquares:
                             {
                                 if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
                                 {
@@ -851,66 +851,66 @@ namespace Nop.Web.Factories
                             }
 
                             break;
-                        case AttributeControlType.ReadonlyCheckboxes:
-                            {
-                                //values are already pre-set
+                        //case AttributeControlType.ReadonlyCheckboxes:
+                        //    {
+                        //        //values are already pre-set
 
-                                //set customer entered quantity
-                                if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
-                                {
-                                    foreach (var attributeValue in _productAttributeParser.ParseProductAttributeValues(updatecartitem.AttributesXml)
-                                        .Where(value => value.CustomerEntersQty))
-                                    {
-                                        var item = attributeModel.Values.FirstOrDefault(value => value.Id == attributeValue.Id);
-                                        if (item != null)
-                                            item.Quantity = attributeValue.Quantity;
-                                    }
-                                }
-                            }
+                        //        //set customer entered quantity
+                        //        if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
+                        //        {
+                        //            foreach (var attributeValue in _productAttributeParser.ParseProductAttributeValues(updatecartitem.AttributesXml)
+                        //                .Where(value => value.CustomerEntersQty))
+                        //            {
+                        //                var item = attributeModel.Values.FirstOrDefault(value => value.Id == attributeValue.Id);
+                        //                if (item != null)
+                        //                    item.Quantity = attributeValue.Quantity;
+                        //            }
+                        //        }
+                        //    }
 
-                            break;
-                        case AttributeControlType.TextBox:
-                        case AttributeControlType.MultilineTextbox:
-                            {
-                                if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
-                                {
-                                    var enteredText = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
-                                    if (enteredText.Any())
-                                        attributeModel.DefaultValue = enteredText[0];
-                                }
-                            }
+                        //    break;
+                        //case AttributeControlType.TextBox:
+                        //case AttributeControlType.MultilineTextbox:
+                        //    {
+                        //        if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
+                        //        {
+                        //            var enteredText = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
+                        //            if (enteredText.Any())
+                        //                attributeModel.DefaultValue = enteredText[0];
+                        //        }
+                        //    }
 
-                            break;
-                        case AttributeControlType.Datepicker:
-                            {
-                                //keep in mind my that the code below works only in the current culture
-                                var selectedDateStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
-                                if (selectedDateStr.Any())
-                                {
-                                    if (DateTime.TryParseExact(selectedDateStr[0], "D", CultureInfo.CurrentCulture, DateTimeStyles.None, out var selectedDate))
-                                    {
-                                        //successfully parsed
-                                        attributeModel.SelectedDay = selectedDate.Day;
-                                        attributeModel.SelectedMonth = selectedDate.Month;
-                                        attributeModel.SelectedYear = selectedDate.Year;
-                                    }
-                                }
-                            }
+                        //    break;
+                        //case AttributeControlType.Datepicker:
+                        //    {
+                        //        //keep in mind my that the code below works only in the current culture
+                        //        var selectedDateStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
+                        //        if (selectedDateStr.Any())
+                        //        {
+                        //            if (DateTime.TryParseExact(selectedDateStr[0], "D", CultureInfo.CurrentCulture, DateTimeStyles.None, out var selectedDate))
+                        //            {
+                        //                //successfully parsed
+                        //                attributeModel.SelectedDay = selectedDate.Day;
+                        //                attributeModel.SelectedMonth = selectedDate.Month;
+                        //                attributeModel.SelectedYear = selectedDate.Year;
+                        //            }
+                        //        }
+                        //    }
 
-                            break;
-                        case AttributeControlType.FileUpload:
-                            {
-                                if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
-                                {
-                                    var downloadGuidStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id).FirstOrDefault();
-                                    Guid.TryParse(downloadGuidStr, out var downloadGuid);
-                                    var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                                    if (download != null)
-                                        attributeModel.DefaultValue = download.DownloadGuid.ToString();
-                                }
-                            }
+                        //    break;
+                        //case AttributeControlType.FileUpload:
+                        //    {
+                        //        if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
+                        //        {
+                        //            var downloadGuidStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id).FirstOrDefault();
+                        //            Guid.TryParse(downloadGuidStr, out var downloadGuid);
+                        //            var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                        //            if (download != null)
+                        //                attributeModel.DefaultValue = download.DownloadGuid.ToString();
+                        //        }
+                        //    }
 
-                            break;
+                        //    break;
                         default:
                             break;
                     }
@@ -1352,16 +1352,16 @@ namespace Nop.Web.Factories
                 model.ProductEstimateShipping.Enabled = false;
 
             //associated products
-            if (product.ProductType == ProductType.GroupedProduct)
-            {
-                //ensure no circular references
-                if (!isAssociatedProduct)
-                {
-                    var associatedProducts = _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
-                    foreach (var associatedProduct in associatedProducts)
-                        model.AssociatedProducts.Add(PrepareProductDetailsModel(associatedProduct, null, true));
-                }
-            }
+            //if (product.ProductType == ProductType.GroupedProduct)
+            //{
+            //    //ensure no circular references
+            //    if (!isAssociatedProduct)
+            //    {
+            //        var associatedProducts = _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
+            //        foreach (var associatedProduct in associatedProducts)
+            //            model.AssociatedProducts.Add(PrepareProductDetailsModel(associatedProduct, null, true));
+            //    }
+            //}
 
             return model;
         }

@@ -259,9 +259,11 @@ namespace Nop.Web.Areas.Admin.Factories
 
                     //fill in additional values (not existing in the entity)
                     checkoutAttributeValueModel.Name =
-                        checkoutAttribute.AttributeControlType != AttributeControlType.ColorSquares
-                            ? value.Name
-                            : $"{value.Name} - {value.ColorSquaresRgb}";
+                       // checkoutAttribute.AttributeControlType != AttributeControlType.ColorSquares
+                            //?
+                            value.Name
+                            //: $"{value.Name} - {value.ColorSquaresRgb}"
+                            ;
 
                     return checkoutAttributeValueModel;
                 });
@@ -301,7 +303,8 @@ namespace Nop.Web.Areas.Admin.Factories
             model.CheckoutAttributeId = checkoutAttribute.Id;
             model.PrimaryStoreCurrencyCode = _currencyService.GetCurrencyById(_currencySettings.PrimaryStoreCurrencyId).CurrencyCode;
             model.BaseWeightIn = _measureService.GetMeasureWeightById(_measureSettings.BaseWeightId).Name;
-            model.DisplayColorSquaresRgb = checkoutAttribute.AttributeControlType == AttributeControlType.ColorSquares;
+            model.DisplayColorSquaresRgb = false;
+            //checkoutAttribute.AttributeControlType == AttributeControlType.ColorSquares;
 
             //prepare localized models
             if (!excludeProperties)

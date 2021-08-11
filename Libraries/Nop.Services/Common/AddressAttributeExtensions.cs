@@ -18,11 +18,11 @@ namespace Nop.Services.Common
             if (addressAttribute == null)
                 return false;
 
-            if (addressAttribute.AttributeControlType == AttributeControlType.TextBox ||
-                addressAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                addressAttribute.AttributeControlType == AttributeControlType.Datepicker ||
-                addressAttribute.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (addressAttribute.AttributeControlType == AttributeControlType.TextBox ||
+            //    addressAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    addressAttribute.AttributeControlType == AttributeControlType.Datepicker ||
+            //    addressAttribute.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support values
             return true;

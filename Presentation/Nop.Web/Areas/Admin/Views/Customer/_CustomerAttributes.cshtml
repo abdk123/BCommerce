@@ -45,20 +45,20 @@
                     }
                     break;
                 case AttributeControlType.Checkboxes:
-                case AttributeControlType.ReadonlyCheckboxes:
+                //case AttributeControlType.ReadonlyCheckboxes:
                     {
                         foreach (var attributeValue in customerAttribute.Values)
                         {
                             <div class="checkbox">
                                 <label>
-                                    <input id="@(controlId)_@(attributeValue.Id)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" @(customerAttribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ? Html.Raw(" disabled=\"disabled\"") : null) />
+                                    <input id="@(controlId)_@(attributeValue.Id)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" />
                                     @attributeValue.Name
                                 </label>
                             </div>
                         }
                     }
                     break;
-                case AttributeControlType.TextBox:
+                @*case AttributeControlType.TextBox:
                     {
                         <input name="@(controlId)" type="text" id="@(controlId)" value="@(customerAttribute.DefaultValue)" class="form-control"/>
                     }
@@ -69,13 +69,13 @@
                     }
                     break;
                 case AttributeControlType.Datepicker:
-                case AttributeControlType.FileUpload:
-                case AttributeControlType.ColorSquares:
-                case AttributeControlType.ImageSquares:
-                    {
-                        //not support attribute type
-                    }
-                    break;
+                case AttributeControlType.FileUpload:*@
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
+                    //    {
+                    //        //not support attribute type
+                    //    }
+                    //    break;
             }
         </div>
     </div>

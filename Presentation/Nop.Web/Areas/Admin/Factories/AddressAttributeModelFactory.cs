@@ -276,27 +276,27 @@ namespace Nop.Web.Areas.Admin.Factories
                         }
                     }
                     break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                    {
-                        //do nothing
-                        //values are already pre-set
-                    }
-                    break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                    {
-                        if (!string.IsNullOrEmpty(selectedAddressAttributes))
-                        {
-                            var enteredText = _addressAttributeParser.ParseValues(selectedAddressAttributes, attribute.Id);
-                            if (enteredText.Any())
-                                attributeModel.DefaultValue = enteredText[0];
-                        }
-                    }
-                    break;
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
-                    case AttributeControlType.Datepicker:
-                    case AttributeControlType.FileUpload:
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //{
+                    //    //do nothing
+                    //    //values are already pre-set
+                    //}
+                    //break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //{
+                    //    if (!string.IsNullOrEmpty(selectedAddressAttributes))
+                    //    {
+                    //        var enteredText = _addressAttributeParser.ParseValues(selectedAddressAttributes, attribute.Id);
+                    //        if (enteredText.Any())
+                    //            attributeModel.DefaultValue = enteredText[0];
+                    //    }
+                    //}
+                    //break;
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.Datepicker:
+                    //case AttributeControlType.FileUpload:
                     default:
                         //not supported attribute control types
                         break;

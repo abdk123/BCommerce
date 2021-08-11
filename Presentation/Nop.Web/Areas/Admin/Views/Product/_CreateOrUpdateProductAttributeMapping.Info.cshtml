@@ -3,7 +3,7 @@
 @using Nop.Core.Domain.Catalog
 @using Nop.Services
 
-<script>
+    <script>
     $(document).ready(function() {
         $("#@Html.IdFor(model => model.AttributeControlTypeId)").change(toggleAttributeControlType);
 
@@ -13,7 +13,7 @@
     function toggleAttributeControlType() {
         var selectedAttributeControlTypeId = $("#@Html.IdFor(model => model.AttributeControlTypeId)").val();
         //validation
-        if (selectedAttributeControlTypeId == @(((int) AttributeControlType.TextBox).ToString())) {
+        @*if (selectedAttributeControlTypeId == @(((int) AttributeControlType.TextBox).ToString())) {
             $('#pnlValidationMinLength').show();
             $('#pnlValidationMaxLength').show();
             $('#pnlValidationFileMaximumSize').hide();
@@ -39,7 +39,7 @@
             {
                 <text>$("#@Html.IdFor(model => model.Locales[item].DefaultValue)").val('');</text>
             }
-        } else {
+        } else {*@
             $('#pnlValidationMinLength').hide();
             $('#pnlValidationMaxLength').hide();
             $('#pnlValidationFileMaximumSize').hide();
@@ -51,15 +51,14 @@
             {
                 <text>$("#@Html.IdFor(model => model.Locales[item].DefaultValue)").val('');</text>
             }
-        }
+        //}
 
         //values
         if (selectedAttributeControlTypeId == @(((int) AttributeControlType.DropdownList).ToString()) ||
             selectedAttributeControlTypeId == @(((int) AttributeControlType.RadioList).ToString()) ||
-            selectedAttributeControlTypeId == @(((int) AttributeControlType.Checkboxes).ToString()) ||
-            selectedAttributeControlTypeId == @(((int) AttributeControlType.ColorSquares).ToString()) ||
-            selectedAttributeControlTypeId == @(((int) AttributeControlType.ImageSquares).ToString()) ||
-            selectedAttributeControlTypeId == @(((int) AttributeControlType.ReadonlyCheckboxes).ToString())) {
+            selectedAttributeControlTypeId == @(((int) AttributeControlType.Checkboxes).ToString()))
+            @*|| selectedAttributeControlTypeId == @(((int) AttributeControlType.ReadonlyCheckboxes).ToString())*@
+            ) {
             $('[data-panel-name=product-attribute-mapping-values]').show();
         } else {
             $('[data-panel-name=product-attribute-mapping-values]').hide();
@@ -133,7 +132,7 @@
                 <span asp-validation-for="@Model.Locales[item].DefaultValue"></span>
             </div>
         </div>
-        <input type="hidden" asp-for="@Model.Locales[item].LanguageId" /> 
+        <input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
     </div>
 ,
     @<div>

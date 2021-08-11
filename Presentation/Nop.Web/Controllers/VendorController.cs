@@ -132,36 +132,36 @@ namespace Nop.Web.Controllers
                             }
                         }
                         break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                        {
-                            //load read-only (already server-side selected) values
-                            var attributeValues = _vendorAttributeService.GetVendorAttributeValues(attribute.Id);
-                            foreach (var selectedAttributeId in attributeValues
-                                .Where(v => v.IsPreSelected)
-                                .Select(v => v.Id)
-                                .ToList())
-                            {
-                                attributesXml = _vendorAttributeParser.AddVendorAttribute(attributesXml,
-                                    attribute, selectedAttributeId.ToString());
-                            }
-                        }
-                        break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                        {
-                            var ctrlAttributes = form[controlId];
-                            if (!StringValues.IsNullOrEmpty(ctrlAttributes))
-                            {
-                                var enteredText = ctrlAttributes.ToString().Trim();
-                                attributesXml = _vendorAttributeParser.AddVendorAttribute(attributesXml,
-                                    attribute, enteredText);
-                            }
-                        }
-                        break;
-                    case AttributeControlType.Datepicker:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
-                    case AttributeControlType.FileUpload:
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //    {
+                    //        //load read-only (already server-side selected) values
+                    //        var attributeValues = _vendorAttributeService.GetVendorAttributeValues(attribute.Id);
+                    //        foreach (var selectedAttributeId in attributeValues
+                    //            .Where(v => v.IsPreSelected)
+                    //            .Select(v => v.Id)
+                    //            .ToList())
+                    //        {
+                    //            attributesXml = _vendorAttributeParser.AddVendorAttribute(attributesXml,
+                    //                attribute, selectedAttributeId.ToString());
+                    //        }
+                    //    }
+                    //    break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //    {
+                    //        var ctrlAttributes = form[controlId];
+                    //        if (!StringValues.IsNullOrEmpty(ctrlAttributes))
+                    //        {
+                    //            var enteredText = ctrlAttributes.ToString().Trim();
+                    //            attributesXml = _vendorAttributeParser.AddVendorAttribute(attributesXml,
+                    //                attribute, enteredText);
+                    //        }
+                    //    }
+                    //    break;
+                    //case AttributeControlType.Datepicker:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.FileUpload:
                     //not supported vendor attributes
                     default:
                         break;

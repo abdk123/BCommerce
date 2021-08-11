@@ -428,10 +428,10 @@ namespace Nop.Services.ExportImport
                 new PropertyByName<ExportProductAttribute>("AttributeName", p => p.AttributeName),
                 new PropertyByName<ExportProductAttribute>("AttributeTextPrompt", p => p.AttributeTextPrompt),
                 new PropertyByName<ExportProductAttribute>("AttributeIsRequired", p => p.AttributeIsRequired),
-                new PropertyByName<ExportProductAttribute>("AttributeControlType", p => p.AttributeControlTypeId)
-                {
-                    DropDownElements = AttributeControlType.TextBox.ToSelectList(useLocalization: false)
-                },
+                //new PropertyByName<ExportProductAttribute>("AttributeControlType", p => p.AttributeControlTypeId)
+                //{
+                //    DropDownElements = AttributeControlType.TextBox.ToSelectList(useLocalization: false)
+                //},
                 new PropertyByName<ExportProductAttribute>("AttributeDisplayOrder", p => p.AttributeDisplayOrder),
                 new PropertyByName<ExportProductAttribute>("ProductAttributeValueId", p => p.Id),
                 new PropertyByName<ExportProductAttribute>("ValueName", p => p.Name),

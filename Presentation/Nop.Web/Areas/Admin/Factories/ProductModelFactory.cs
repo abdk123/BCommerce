@@ -327,8 +327,8 @@ namespace Nop.Web.Areas.Admin.Factories
                             case AttributeControlType.DropdownList:
                             case AttributeControlType.RadioList:
                             case AttributeControlType.Checkboxes:
-                            case AttributeControlType.ColorSquares:
-                            case AttributeControlType.ImageSquares:
+                            //case AttributeControlType.ColorSquares:
+                            //case AttributeControlType.ImageSquares:
                                 if (!string.IsNullOrEmpty(productAttributeMapping.ConditionAttributeXml))
                                 {
                                     //clear default selection
@@ -346,11 +346,11 @@ namespace Nop.Web.Areas.Admin.Factories
                                 }
 
                                 break;
-                            case AttributeControlType.ReadonlyCheckboxes:
-                            case AttributeControlType.TextBox:
-                            case AttributeControlType.MultilineTextbox:
-                            case AttributeControlType.Datepicker:
-                            case AttributeControlType.FileUpload:
+                            //case AttributeControlType.ReadonlyCheckboxes:
+                            //case AttributeControlType.TextBox:
+                            //case AttributeControlType.MultilineTextbox:
+                            //case AttributeControlType.Datepicker:
+                            //case AttributeControlType.FileUpload:
                             default:
                                 //these attribute types are supported as conditions
                                 break;
@@ -1938,8 +1938,12 @@ namespace Nop.Web.Areas.Admin.Factories
                     
                     //fill in additional values (not existing in the entity)
                     productAttributeValueModel.AttributeValueTypeName = _localizationService.GetLocalizedEnum(value.AttributeValueType);
-                    productAttributeValueModel.Name = productAttributeMapping.AttributeControlType != AttributeControlType.ColorSquares
-                        ? value.Name : $"{value.Name} - {value.ColorSquaresRgb}";
+                    productAttributeValueModel.Name = 
+                    //productAttributeMapping.AttributeControlType != AttributeControlType.ColorSquares
+                        //? 
+                        value.Name 
+                        //: $"{value.Name} - {value.ColorSquaresRgb}"
+                        ;
                     if (value.AttributeValueType == AttributeValueType.Simple)
                     {
                         productAttributeValueModel.PriceAdjustmentStr = value.PriceAdjustment.ToString("G29");
@@ -1994,9 +1998,9 @@ namespace Nop.Web.Areas.Admin.Factories
                     AssociatedProductId = productAttributeValue.AssociatedProductId,
                     Name = productAttributeValue.Name,
                     ColorSquaresRgb = productAttributeValue.ColorSquaresRgb,
-                    DisplayColorSquaresRgb = productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares,
-                    ImageSquaresPictureId = productAttributeValue.ImageSquaresPictureId,
-                    DisplayImageSquaresPicture = productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares,
+                    DisplayColorSquaresRgb = false,// productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares,
+                ImageSquaresPictureId = productAttributeValue.ImageSquaresPictureId,
+                    DisplayImageSquaresPicture = false,// productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares,
                     PriceAdjustment = productAttributeValue.PriceAdjustment,
                     PriceAdjustmentUsePercentage = productAttributeValue.PriceAdjustmentUsePercentage,
                     WeightAdjustment = productAttributeValue.WeightAdjustment,
@@ -2018,8 +2022,10 @@ namespace Nop.Web.Areas.Admin.Factories
             }
 
             model.ProductAttributeMappingId = productAttributeMapping.Id;
-            model.DisplayColorSquaresRgb = productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares;
-            model.DisplayImageSquaresPicture = productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares;
+            model.DisplayColorSquaresRgb = false;
+            //productAttributeMapping.AttributeControlType == AttributeControlType.ColorSquares;
+            model.DisplayImageSquaresPicture = false;
+            //productAttributeMapping.AttributeControlType == AttributeControlType.ImageSquares;
 
             //set default values for the new model
             if (productAttributeValue == null)

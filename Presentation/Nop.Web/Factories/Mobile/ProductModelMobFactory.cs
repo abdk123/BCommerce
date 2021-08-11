@@ -221,11 +221,11 @@ namespace Nop.Web.Factories.Mobile
 
             switch (product.ProductType)
             {
-                case ProductType.GroupedProduct:
-                    //grouped product
-                    PrepareGroupedProductOverviewPriceModel(product, priceModel);
+                //case ProductType.GroupedProduct:
+                //    //grouped product
+                //    PrepareGroupedProductOverviewPriceModel(product, priceModel);
 
-                    break;
+                //    break;
                 case ProductType.SimpleProduct:
                 default:
                     //simple product
@@ -823,8 +823,8 @@ namespace Nop.Web.Factories.Mobile
                         case AttributeControlType.DropdownList:
                         case AttributeControlType.RadioList:
                         case AttributeControlType.Checkboxes:
-                        case AttributeControlType.ColorSquares:
-                        case AttributeControlType.ImageSquares:
+                        //case AttributeControlType.ColorSquares:
+                        //case AttributeControlType.ImageSquares:
                             {
                                 if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
                                 {
@@ -848,66 +848,66 @@ namespace Nop.Web.Factories.Mobile
                             }
 
                             break;
-                        case AttributeControlType.ReadonlyCheckboxes:
-                            {
-                                //values are already pre-set
+                        //case AttributeControlType.ReadonlyCheckboxes:
+                        //    {
+                        //        //values are already pre-set
 
-                                //set customer entered quantity
-                                if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
-                                {
-                                    foreach (var attributeValue in _productAttributeParser.ParseProductAttributeValues(updatecartitem.AttributesXml)
-                                        .Where(value => value.CustomerEntersQty))
-                                    {
-                                        var item = attributeModel.Values.FirstOrDefault(value => value.Id == attributeValue.Id);
-                                        if (item != null)
-                                            item.Quantity = attributeValue.Quantity;
-                                    }
-                                }
-                            }
+                        //        //set customer entered quantity
+                        //        if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
+                        //        {
+                        //            foreach (var attributeValue in _productAttributeParser.ParseProductAttributeValues(updatecartitem.AttributesXml)
+                        //                .Where(value => value.CustomerEntersQty))
+                        //            {
+                        //                var item = attributeModel.Values.FirstOrDefault(value => value.Id == attributeValue.Id);
+                        //                if (item != null)
+                        //                    item.Quantity = attributeValue.Quantity;
+                        //            }
+                        //        }
+                        //    }
 
-                            break;
-                        case AttributeControlType.TextBox:
-                        case AttributeControlType.MultilineTextbox:
-                            {
-                                if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
-                                {
-                                    var enteredText = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
-                                    if (enteredText.Any())
-                                        attributeModel.DefaultValue = enteredText[0];
-                                }
-                            }
+                        //    break;
+                        //case AttributeControlType.TextBox:
+                        //case AttributeControlType.MultilineTextbox:
+                        //    {
+                        //        if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
+                        //        {
+                        //            var enteredText = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
+                        //            if (enteredText.Any())
+                        //                attributeModel.DefaultValue = enteredText[0];
+                        //        }
+                        //    }
 
-                            break;
-                        case AttributeControlType.Datepicker:
-                            {
-                                //keep in mind my that the code below works only in the current culture
-                                var selectedDateStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
-                                if (selectedDateStr.Any())
-                                {
-                                    if (DateTime.TryParseExact(selectedDateStr[0], "D", CultureInfo.CurrentCulture, DateTimeStyles.None, out var selectedDate))
-                                    {
-                                        //successfully parsed
-                                        attributeModel.SelectedDay = selectedDate.Day;
-                                        attributeModel.SelectedMonth = selectedDate.Month;
-                                        attributeModel.SelectedYear = selectedDate.Year;
-                                    }
-                                }
-                            }
+                        //    break;
+                        //case AttributeControlType.Datepicker:
+                        //    {
+                        //        //keep in mind my that the code below works only in the current culture
+                        //        var selectedDateStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id);
+                        //        if (selectedDateStr.Any())
+                        //        {
+                        //            if (DateTime.TryParseExact(selectedDateStr[0], "D", CultureInfo.CurrentCulture, DateTimeStyles.None, out var selectedDate))
+                        //            {
+                        //                //successfully parsed
+                        //                attributeModel.SelectedDay = selectedDate.Day;
+                        //                attributeModel.SelectedMonth = selectedDate.Month;
+                        //                attributeModel.SelectedYear = selectedDate.Year;
+                        //            }
+                        //        }
+                        //    }
 
-                            break;
-                        case AttributeControlType.FileUpload:
-                            {
-                                if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
-                                {
-                                    var downloadGuidStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id).FirstOrDefault();
-                                    Guid.TryParse(downloadGuidStr, out var downloadGuid);
-                                    var download = _downloadService.GetDownloadByGuid(downloadGuid);
-                                    if (download != null)
-                                        attributeModel.DefaultValue = download.DownloadGuid.ToString();
-                                }
-                            }
+                        //    break;
+                        //case AttributeControlType.FileUpload:
+                        //    {
+                        //        if (!string.IsNullOrEmpty(updatecartitem.AttributesXml))
+                        //        {
+                        //            var downloadGuidStr = _productAttributeParser.ParseValues(updatecartitem.AttributesXml, attribute.Id).FirstOrDefault();
+                        //            Guid.TryParse(downloadGuidStr, out var downloadGuid);
+                        //            var download = _downloadService.GetDownloadByGuid(downloadGuid);
+                        //            if (download != null)
+                        //                attributeModel.DefaultValue = download.DownloadGuid.ToString();
+                        //        }
+                        //    }
 
-                            break;
+                        //    break;
                         default:
                             break;
                     }
@@ -1349,16 +1349,16 @@ namespace Nop.Web.Factories.Mobile
                 model.ProductEstimateShipping.Enabled = false;
 
             //associated products
-            if (product.ProductType == ProductType.GroupedProduct)
-            {
-                //ensure no circular references
-                if (!isAssociatedProduct)
-                {
-                    var associatedProducts = _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
-                    foreach (var associatedProduct in associatedProducts)
-                        model.AssociatedProducts.Add(PrepareProductDetailsModel(associatedProduct, null, true));
-                }
-            }
+            //if (product.ProductType == ProductType.GroupedProduct)
+            //{
+            //    //ensure no circular references
+            //    if (!isAssociatedProduct)
+            //    {
+            //        var associatedProducts = _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
+            //        foreach (var associatedProduct in associatedProducts)
+            //            model.AssociatedProducts.Add(PrepareProductDetailsModel(associatedProduct, null, true));
+            //    }
+            //}
 
             return model;
         }
@@ -1655,5 +1655,134 @@ namespace Nop.Web.Factories.Mobile
         }
 
         #endregion
+        //public virtual string GetProductAttributesXml(Product product, List<Nop.Web.Models.Mobile.ShoppingCart.ProductAttribute> attributes, List<string> errors)
+        //{
+        //    var attributesXml = string.Empty;
+        //    var productAttributes = _productAttributeService.GetProductAttributeMappingsByProductId(product.Id);
+        //    foreach (var attribute in productAttributes)
+        //    {
+        //        var controlId = $"{NopCatalogDefaults.ProductAttributePrefix}{attribute.Id}";
+        //        switch (attribute.AttributeControlType)
+        //        {
+        //            case AttributeControlType.DropdownList:
+        //            case AttributeControlType.RadioList:
+        //            case AttributeControlType.ColorSquares:
+        //            case AttributeControlType.ImageSquares:
+        //                {
+        //                    var ctrlAttributes = attributes.Where(x=> x.AttributeId == attribute.Id).FirstOrDefault();
+        //                    if (!ctrlAttributes.Values.Any())
+        //                    {
+        //                        var selectedAttributeId = int.Parse(ctrlAttributes.Values.FirstOrDefault());
+        //                        if (selectedAttributeId > 0)
+        //                        {
+        //                            //get quantity entered by customer
+        //                            var quantity = 1;
+
+        //                            attributesXml = _productAttributeParser.AddProductAttribute(attributesXml,
+        //                                attribute, selectedAttributeId.ToString(), quantity > 1 ? (int?)quantity : null);
+        //                        }
+        //                    }
+        //                }
+        //                break;
+        //            case AttributeControlType.Checkboxes:
+        //                {
+        //                    var ctrlAttributes = attributes.Where(x => x.AttributeId == attribute.Id).FirstOrDefault();
+        //                    if (!ctrlAttributes.Values.Any())
+        //                    {
+        //                        foreach (var item in ctrlAttributes.Values()
+        //                            .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+        //                        {
+        //                            var selectedAttributeId = int.Parse(item);
+        //                            if (selectedAttributeId > 0)
+        //                            {
+        //                                //get quantity entered by customer
+        //                                var quantity = 1;
+        //                                var quantityStr = form[$"{NopCatalogDefaults.ProductAttributePrefix}{attribute.Id}_{item}_qty"];
+        //                                if (!StringValues.IsNullOrEmpty(quantityStr) &&
+        //                                    (!int.TryParse(quantityStr, out quantity) || quantity < 1))
+        //                                    errors.Add(_localizationService.GetResource("Products.QuantityShouldBePositive"));
+
+        //                                attributesXml = AddProductAttribute(attributesXml,
+        //                                    attribute, selectedAttributeId.ToString(), quantity > 1 ? (int?)quantity : null);
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //                break;
+        //            case AttributeControlType.ReadonlyCheckboxes:
+        //                {
+        //                    //load read-only (already server-side selected) values
+        //                    var attributeValues = _productAttributeService.GetProductAttributeValues(attribute.Id);
+        //                    foreach (var selectedAttributeId in attributeValues
+        //                        .Where(v => v.IsPreSelected)
+        //                        .Select(v => v.Id)
+        //                        .ToList())
+        //                    {
+        //                        //get quantity entered by customer
+        //                        var quantity = 1;
+        //                        var quantityStr = form[$"{NopCatalogDefaults.ProductAttributePrefix}{attribute.Id}_{selectedAttributeId}_qty"];
+        //                        if (!StringValues.IsNullOrEmpty(quantityStr) &&
+        //                            (!int.TryParse(quantityStr, out quantity) || quantity < 1))
+        //                            errors.Add(_localizationService.GetResource("Products.QuantityShouldBePositive"));
+
+        //                        attributesXml = AddProductAttribute(attributesXml,
+        //                            attribute, selectedAttributeId.ToString(), quantity > 1 ? (int?)quantity : null);
+        //                    }
+        //                }
+        //                break;
+        //            case AttributeControlType.TextBox:
+        //            case AttributeControlType.MultilineTextbox:
+        //                {
+        //                    var ctrlAttributes = form[controlId];
+        //                    if (!StringValues.IsNullOrEmpty(ctrlAttributes))
+        //                    {
+        //                        var enteredText = ctrlAttributes.ToString().Trim();
+        //                        attributesXml = AddProductAttribute(attributesXml, attribute, enteredText);
+        //                    }
+        //                }
+        //                break;
+        //            case AttributeControlType.Datepicker:
+        //                {
+        //                    var day = form[controlId + "_day"];
+        //                    var month = form[controlId + "_month"];
+        //                    var year = form[controlId + "_year"];
+        //                    DateTime? selectedDate = null;
+        //                    try
+        //                    {
+        //                        selectedDate = new DateTime(int.Parse(year), int.Parse(month), int.Parse(day));
+        //                    }
+        //                    catch
+        //                    {
+        //                    }
+        //                    if (selectedDate.HasValue)
+        //                        attributesXml = AddProductAttribute(attributesXml, attribute, selectedDate.Value.ToString("D"));
+        //                }
+        //                break;
+        //            case AttributeControlType.FileUpload:
+        //                {
+        //                    Guid.TryParse(form[controlId], out var downloadGuid);
+        //                    var download = _downloadService.GetDownloadByGuid(downloadGuid);
+        //                    if (download != null)
+        //                    {
+        //                        attributesXml = AddProductAttribute(attributesXml,
+        //                            attribute, download.DownloadGuid.ToString());
+        //                    }
+        //                }
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //    }
+        //    //validate conditional attributes (if specified)
+        //    foreach (var attribute in productAttributes)
+        //    {
+        //        var conditionMet = IsConditionMet(attribute, attributesXml);
+        //        if (conditionMet.HasValue && !conditionMet.Value)
+        //        {
+        //            attributesXml = RemoveProductAttribute(attributesXml, attribute);
+        //        }
+        //    }
+        //    return attributesXml;
+        //}
     }
 }

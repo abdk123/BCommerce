@@ -8621,7 +8621,8 @@ namespace Nop.Services.Installation
             //this one is a grouped product with two associated ones
             var productNikonD5500DSLR = new Product
             {
-                ProductType = ProductType.GroupedProduct,
+                //ProductType = ProductType.GroupedProduct,
+                ProductType = ProductType.SimpleProduct,
                 VisibleIndividually = true,
                 Name = "Nikon D5500 DSLR",
                 Sku = "N5500DS_0",
@@ -9368,7 +9369,7 @@ namespace Nop.Services.Installation
                 {
                     ProductId = productNikeFloral.Id,
                     ProductAttributeId = _productAttributeRepository.Table.Single(x => x.Name == "Print").Id,
-                    AttributeControlType = AttributeControlType.ImageSquares,
+                    //AttributeControlType = AttributeControlType.ImageSquares,
                     IsRequired = true
                 });
 
@@ -9515,7 +9516,7 @@ namespace Nop.Services.Installation
                 {
                     ProductId = productAdidas.Id,
                     ProductAttributeId = _productAttributeRepository.Table.Single(x => x.Name == "Color").Id,
-                    AttributeControlType = AttributeControlType.ColorSquares,
+                    //AttributeControlType = AttributeControlType.ColorSquares,
                     IsRequired = true
                 });
 
@@ -9844,15 +9845,15 @@ namespace Nop.Services.Installation
 
             InsertProductPicture(productCustomTShirt, "product_CustomTShirt.jpeg");
 
-            _productAttributeMappingRepository.Insert(
-                new ProductAttributeMapping
-                {
-                    ProductId = productCustomTShirt.Id,
-                    ProductAttributeId = _productAttributeRepository.Table.Single(x => x.Name == "Custom Text").Id,
-                    TextPrompt = "Enter your text:",
-                    AttributeControlType = AttributeControlType.TextBox,
-                    IsRequired = true
-                });
+            //_productAttributeMappingRepository.Insert(
+            //    new ProductAttributeMapping
+            //    {
+            //        ProductId = productCustomTShirt.Id,
+            //        ProductAttributeId = _productAttributeRepository.Table.Single(x => x.Name == "Custom Text").Id,
+            //        TextPrompt = "Enter your text:",
+            //        AttributeControlType = AttributeControlType.TextBox,
+            //        IsRequired = true
+            //    });
 
             AddProductTag(productCustomTShirt, "cool");
             AddProductTag(productCustomTShirt, "shirt");
@@ -12234,13 +12235,13 @@ namespace Nop.Services.Installation
         {
             var productTemplates = new List<ProductTemplate>
             {
-                new ProductTemplate
-                {
-                    Name = "Simple product",
-                    ViewPath = "ProductTemplate.Simple",
-                    DisplayOrder = 10,
-                    IgnoredProductTypes = ((int)ProductType.GroupedProduct).ToString()
-                },
+                //new ProductTemplate
+                //{
+                //    Name = "Simple product",
+                //    ViewPath = "ProductTemplate.Simple",
+                //    DisplayOrder = 10,
+                //    IgnoredProductTypes = ((int)ProductType.GroupedProduct).ToString()
+                //},
                 new ProductTemplate
                 {
                     Name = "Grouped product (with variants)",

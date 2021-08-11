@@ -17,11 +17,11 @@ namespace Nop.Services.Catalog
             if (productAttributeMapping == null)
                 return false;
 
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.TextBox ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.Datepicker ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.TextBox ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.Datepicker ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support values
             return true;
@@ -37,12 +37,12 @@ namespace Nop.Services.Catalog
             if (productAttributeMapping == null)
                 return false;
 
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.ReadonlyCheckboxes || 
-                productAttributeMapping.AttributeControlType == AttributeControlType.TextBox ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.Datepicker ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.ReadonlyCheckboxes || 
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.TextBox ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.Datepicker ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support it
             return true;
@@ -58,10 +58,10 @@ namespace Nop.Services.Catalog
             if (productAttributeMapping == null)
                 return false;
 
-            if (productAttributeMapping.AttributeControlType == AttributeControlType.TextBox ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                productAttributeMapping.AttributeControlType == AttributeControlType.FileUpload)
-                return true;
+            //if (productAttributeMapping.AttributeControlType == AttributeControlType.TextBox ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    productAttributeMapping.AttributeControlType == AttributeControlType.FileUpload)
+            //    return true;
 
             //other attribute control types does not have validation
             return false;

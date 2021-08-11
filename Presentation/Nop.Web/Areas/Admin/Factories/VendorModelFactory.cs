@@ -163,27 +163,27 @@ namespace Nop.Web.Areas.Admin.Factories
                                 }
                             }
                             break;
-                        case AttributeControlType.ReadonlyCheckboxes:
-                            {
-                                //do nothing
-                                //values are already pre-set
-                            }
-                            break;
-                        case AttributeControlType.TextBox:
-                        case AttributeControlType.MultilineTextbox:
-                            {
-                                if (!string.IsNullOrEmpty(selectedVendorAttributes))
-                                {
-                                    var enteredText = _vendorAttributeParser.ParseValues(selectedVendorAttributes, attribute.Id);
-                                    if (enteredText.Any())
-                                        attributeModel.DefaultValue = enteredText[0];
-                                }
-                            }
-                            break;
-                        case AttributeControlType.Datepicker:
-                        case AttributeControlType.ColorSquares:
-                        case AttributeControlType.ImageSquares:
-                        case AttributeControlType.FileUpload:
+                        //case AttributeControlType.ReadonlyCheckboxes:
+                        //    {
+                        //        //do nothing
+                        //        //values are already pre-set
+                        //    }
+                        //    break;
+                        //case AttributeControlType.TextBox:
+                        //case AttributeControlType.MultilineTextbox:
+                        //    {
+                        //        if (!string.IsNullOrEmpty(selectedVendorAttributes))
+                        //        {
+                        //            var enteredText = _vendorAttributeParser.ParseValues(selectedVendorAttributes, attribute.Id);
+                        //            if (enteredText.Any())
+                        //                attributeModel.DefaultValue = enteredText[0];
+                        //        }
+                        //    }
+                        //    break;
+                        //case AttributeControlType.Datepicker:
+                        //case AttributeControlType.ColorSquares:
+                        //case AttributeControlType.ImageSquares:
+                        //case AttributeControlType.FileUpload:
                         default:
                             //not supported attribute control types
                             break;

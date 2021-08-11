@@ -242,36 +242,36 @@ namespace Nop.Web.Controllers
                             }
                         }
                         break;
-                    case AttributeControlType.ReadonlyCheckboxes:
-                        {
-                            //load read-only (already server-side selected) values
-                            var attributeValues = _customerAttributeService.GetCustomerAttributeValues(attribute.Id);
-                            foreach (var selectedAttributeId in attributeValues
-                                .Where(v => v.IsPreSelected)
-                                .Select(v => v.Id)
-                                .ToList())
-                            {
-                                attributesXml = _customerAttributeParser.AddCustomerAttribute(attributesXml,
-                                    attribute, selectedAttributeId.ToString());
-                            }
-                        }
-                        break;
-                    case AttributeControlType.TextBox:
-                    case AttributeControlType.MultilineTextbox:
-                        {
-                            var ctrlAttributes = form[controlId];
-                            if (!StringValues.IsNullOrEmpty(ctrlAttributes))
-                            {
-                                var enteredText = ctrlAttributes.ToString().Trim();
-                                attributesXml = _customerAttributeParser.AddCustomerAttribute(attributesXml,
-                                    attribute, enteredText);
-                            }
-                        }
-                        break;
-                    case AttributeControlType.Datepicker:
-                    case AttributeControlType.ColorSquares:
-                    case AttributeControlType.ImageSquares:
-                    case AttributeControlType.FileUpload:
+                    //case AttributeControlType.ReadonlyCheckboxes:
+                    //    {
+                    //        //load read-only (already server-side selected) values
+                    //        var attributeValues = _customerAttributeService.GetCustomerAttributeValues(attribute.Id);
+                    //        foreach (var selectedAttributeId in attributeValues
+                    //            .Where(v => v.IsPreSelected)
+                    //            .Select(v => v.Id)
+                    //            .ToList())
+                    //        {
+                    //            attributesXml = _customerAttributeParser.AddCustomerAttribute(attributesXml,
+                    //                attribute, selectedAttributeId.ToString());
+                    //        }
+                    //    }
+                    //    break;
+                    //case AttributeControlType.TextBox:
+                    //case AttributeControlType.MultilineTextbox:
+                    //    {
+                    //        var ctrlAttributes = form[controlId];
+                    //        if (!StringValues.IsNullOrEmpty(ctrlAttributes))
+                    //        {
+                    //            var enteredText = ctrlAttributes.ToString().Trim();
+                    //            attributesXml = _customerAttributeParser.AddCustomerAttribute(attributesXml,
+                    //                attribute, enteredText);
+                    //        }
+                    //    }
+                    //    break;
+                    //case AttributeControlType.Datepicker:
+                    //case AttributeControlType.ColorSquares:
+                    //case AttributeControlType.ImageSquares:
+                    //case AttributeControlType.FileUpload:
                     //not supported customer attributes
                     default:
                         break;

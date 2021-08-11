@@ -279,7 +279,7 @@
 
                         <script>
                             function renderColumnPrice(data, type, row, meta) {
-                                return (row.ProductTypeId != @((int)ProductType.GroupedProduct) ) ? data : null;
+                                return data;
                             }
 
                             $(document).ready(function () {

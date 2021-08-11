@@ -18,11 +18,11 @@ namespace Nop.Services.Vendors
             if (vendorAttribute == null)
                 return false;
 
-            if (vendorAttribute.AttributeControlType == AttributeControlType.TextBox ||
-                vendorAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                vendorAttribute.AttributeControlType == AttributeControlType.Datepicker ||
-                vendorAttribute.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (vendorAttribute.AttributeControlType == AttributeControlType.TextBox ||
+            //    vendorAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    vendorAttribute.AttributeControlType == AttributeControlType.Datepicker ||
+            //    vendorAttribute.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support values
             return true;

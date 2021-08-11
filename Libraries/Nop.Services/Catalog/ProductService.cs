@@ -912,7 +912,7 @@ namespace Nop.Services.Catalog
             query = query.Where(product => !product.Deleted);
 
             //ignore grouped products
-            query = query.Where(product => product.ProductTypeId != (int)ProductType.GroupedProduct);
+            //query = query.Where(product => product.ProductTypeId != (int)ProductType.GroupedProduct);
 
             //filter by vendor
             if (vendorId.HasValue && vendorId.Value > 0)
@@ -949,7 +949,7 @@ namespace Nop.Services.Catalog
                     //ignore deleted products
                     !p.Deleted &&
                     //ignore grouped products
-                    p.ProductTypeId != (int)ProductType.GroupedProduct &&
+                    //p.ProductTypeId != (int)ProductType.GroupedProduct &&
                     //filter by vendor
                     (vendorId ?? 0) == 0 || p.VendorId == vendorId &&
                     //whether to load published products only

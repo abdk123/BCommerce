@@ -18,11 +18,11 @@ namespace Nop.Services.Orders
             if (checkoutAttribute == null)
                 return false;
 
-            if (checkoutAttribute.AttributeControlType == AttributeControlType.TextBox ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.Datepicker ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (checkoutAttribute.AttributeControlType == AttributeControlType.TextBox ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.Datepicker ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support values
             return true;
@@ -38,12 +38,12 @@ namespace Nop.Services.Orders
             if (checkoutAttribute == null)
                 return false;
 
-            if (checkoutAttribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.TextBox ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.Datepicker ||
-                checkoutAttribute.AttributeControlType == AttributeControlType.FileUpload)
-                return false;
+            //if (checkoutAttribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.TextBox ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.MultilineTextbox ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.Datepicker ||
+            //    checkoutAttribute.AttributeControlType == AttributeControlType.FileUpload)
+            //    return false;
 
             //other attribute control types support it
             return true;

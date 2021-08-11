@@ -17,6 +17,8 @@ using Nop.Core.Domain.Customers;
 using Nop.Services.Common;
 using Nop.Services.Discounts;
 using Nop.Services.Localization;
+using Microsoft.Extensions.Primitives;
+using Nop.Web.Factories.Mobile;
 
 namespace Nop.Web.Controllers.Mobile
 {
@@ -34,6 +36,7 @@ namespace Nop.Web.Controllers.Mobile
         private readonly ICustomerService _customerService;
         private readonly IStoreContext _storeContext;
         private readonly IShoppingCartModelFactory _shoppingCartModelFactory;
+        private readonly IProductModelMobFactory _productModelFactory;
         private readonly IGenericAttributeService _genericAttributeService;
         private readonly IDiscountService _discountService;
         private readonly ILocalizationService _localizationService;
@@ -44,6 +47,7 @@ namespace Nop.Web.Controllers.Mobile
             IProductAttributeService productAttributeService,
             IShoppingCartService shoppingCartService,
             ICustomerService customerService,
+            IProductModelMobFactory productModelFactory,
             IStoreContext storeContext,
             IGiftCardService giftCardService,
             IShoppingCartModelFactory shoppingCartModelFactory,
@@ -58,6 +62,7 @@ namespace Nop.Web.Controllers.Mobile
             _customerService = customerService;
             _storeContext = storeContext;
             _giftCardService = giftCardService;
+            _productModelFactory = productModelFactory;
             _shoppingCartModelFactory = shoppingCartModelFactory;
             _genericAttributeService = genericAttributeService;
             _discountService = discountService;
@@ -151,11 +156,9 @@ namespace Nop.Web.Controllers.Mobile
             //    {
             //        redirect = Url.RouteUrl("Product", new { SeName = _urlRecordService.GetSeName(product) })
             //    });
-            //}
-
             //allow a product to be added to the cart when all attributes are with "read-only checkboxes" type
             var productAttributes = _productAttributeService.GetProductAttributeMappingsByProductId(product.Id);
-            if (productAttributes.Any(pam => pam.AttributeControlType != AttributeControlType.ReadonlyCheckboxes))
+            if ((!newItem.ProductAttributes.Any() || newItem.ProductAttributes.FirstOrDefault().AttributeId == 0 || !newItem.ProductAttributes.FirstOrDefault().Values.Any()))
                 //product has some attributes. let a customer see them
                 return Ok(new
                 {
@@ -163,16 +166,26 @@ namespace Nop.Web.Controllers.Mobile
                     Msg = "product has some attributes, customer should see them."
                 });
 
+            var addToCartWarnings = new List<string>();
+            var fields = new Dictionary<string, StringValues>();
+            foreach (var item in newItem.ProductAttributes)
+            {
+                var controlId = $"{NopCatalogDefaults.ProductAttributePrefix}{item.AttributeId}";
+                fields.Add(controlId, item.Values);
+            }
+            FormCollection form = new FormCollection(fields);
+            //product and gift card attributes
+            var attributes = _productAttributeParser.ParseProductAttributes(product, form, addToCartWarnings);
             //get standard warnings without attribute validations
             //first, try to find existing shopping cart item
             var cart = _shoppingCartService.GetShoppingCart(customer, cartType, _storeContext.CurrentStore.Id);
             var shoppingCartItem = _shoppingCartService.FindShoppingCartItemInTheCart(cart, cartType, product);
             //if we already have the same product in the cart, then use the total quantity to validate
             var quantityToValidate = shoppingCartItem != null ? shoppingCartItem.Quantity + newItem.Quantity : newItem.Quantity;
-            var addToCartWarnings = _shoppingCartService
+            addToCartWarnings = _shoppingCartService
                 .GetShoppingCartItemWarnings(customer, cartType,
-                product, _storeContext.CurrentStore.Id, string.Empty,
-                decimal.Zero, null, null, quantityToValidate, false, shoppingCartItem?.Id ?? 0, true, false, false, false);
+                product, _storeContext.CurrentStore.Id, attributes,
+                decimal.Zero, null, null, quantityToValidate, false, shoppingCartItem?.Id ?? 0, true, false, false, false).ToList();
             if (addToCartWarnings.Any())
                 //cannot be added to the cart
                 //let's display standard warnings
@@ -187,7 +200,8 @@ namespace Nop.Web.Controllers.Mobile
                 product: product,
                 shoppingCartType: cartType,
                 storeId: _storeContext.CurrentStore.Id,
-                quantity: newItem.Quantity);
+                attributesXml: attributes,
+                quantity: newItem.Quantity).ToList();
             if (addToCartWarnings.Any())
                 //cannot be added to the cart
                 //but we do not display attribute and gift card warnings here. let's do it on the product details page
@@ -202,7 +216,6 @@ namespace Nop.Web.Controllers.Mobile
                 Msg = "Product has added to cart",
             });
         }
-        
         [HttpPost]
         [Route("UpdateCart")]
         public IActionResult UpdateCart(UpdatedCartMobModel updatedCartModel)

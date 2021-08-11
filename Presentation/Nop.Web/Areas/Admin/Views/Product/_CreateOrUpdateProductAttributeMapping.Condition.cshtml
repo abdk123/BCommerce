@@ -91,14 +91,14 @@
                                             </option>
                                         }
                                     </select>
-                                }
-                                    break;
-                                case AttributeControlType.RadioList:
-                                case AttributeControlType.ColorSquares:
-                                case AttributeControlType.ImageSquares:
-                                {
-                                    foreach (var attributeValue in attribute.Values)
-                                    {
+                                        }
+                                        break;
+                                    case AttributeControlType.RadioList:
+                                        //case AttributeControlType.ColorSquares:
+                                        //case AttributeControlType.ImageSquares:
+                                        {
+                                            foreach (var attributeValue in attribute.Values)
+                                            {
                                     <div class="radio">
                                         <label>
                                             <input id="@(controlId)" type="radio" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" />
@@ -114,22 +114,22 @@
                                     {
                                     <div class="radio">
                                         <label>
-                                            <input id="@(controlId)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" @(attribute.AttributeControlType == AttributeControlType.ReadonlyCheckboxes ? Html.Raw(" disabled=\"disabled\"") : null) />
+                                            <input id="@(controlId)" type="checkbox" name="@(controlId)" value="@attributeValue.Id" checked="@attributeValue.IsPreSelected" />
                                             @attributeValue.Name
                                         </label>
                                     </div>
-                                    }
+                                            }
+                                        }
+                                        break;
+                                    //case AttributeControlType.ReadonlyCheckboxes:
+                                    //case AttributeControlType.TextBox:
+                                    //case AttributeControlType.MultilineTextbox:
+                                    //case AttributeControlType.Datepicker:
+                                    //case AttributeControlType.FileUpload:
+                                    default:
+                                        //not supported as conditions
+                                        break;
                                 }
-                                    break;
-                                case AttributeControlType.ReadonlyCheckboxes:
-                                case AttributeControlType.TextBox:
-                                case AttributeControlType.MultilineTextbox:
-                                case AttributeControlType.Datepicker:
-                                case AttributeControlType.FileUpload:
-                                default:
-                                    //not supported as conditions
-                                    break;
-                            }
                             </div>
                     }
                     </div>
