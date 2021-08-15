@@ -1,0 +1,20 @@
+﻿using Bwr.Core.Domain.Orders;
+using Bwr.Services.Caching;
+
+namespace Bwr.Services.Orders.Caching
+{
+    /// <summary>
+    /// Represents a shopping cart item cache event consumer
+    /// </summary>
+    public partial class ShoppingCartItemCacheEventConsumer : CacheEventConsumer<ShoppingCartItem>
+    {
+        /// <summary>
+        /// Clear cache data
+        /// </summary>
+        /// <param name="entity">Entity</param>
+        protected override void ClearCache(ShoppingCartItem entity)
+        {
+            RemoveByPrefix(NopOrderDefaults.ShoppingCartPrefixCacheKey);
+        }
+    }
+}

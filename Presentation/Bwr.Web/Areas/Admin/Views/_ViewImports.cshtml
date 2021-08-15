@@ -1,0 +1,56 @@
+﻿@inherits Bwr.Web.Framework.Mvc.Razor.NopRazorPage<TModel>
+@inject Bwr.Services.Common.IGenericAttributeService genericAttributeService
+@inject IWorkContext workContext
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Bwr.Web.Framework
+
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.AspNetCore.Routing
+@using Microsoft.Extensions.Primitives
+@using Bwr.Core
+@using Bwr.Core.Domain.Common
+@using Bwr.Core.Infrastructure
+@using Bwr.Services.Events
+@using Bwr.Web.Areas.Admin.Models.Affiliates
+@using Bwr.Web.Areas.Admin.Models.Blogs
+@using Bwr.Web.Areas.Admin.Models.Catalog
+@using Bwr.Web.Areas.Admin.Models.Cms
+@using Bwr.Web.Areas.Admin.Models.Common
+@using Bwr.Web.Areas.Admin.Models.Customers
+@using Bwr.Web.Areas.Admin.Models.Directory
+@using Bwr.Web.Areas.Admin.Models.Discounts
+@using Bwr.Web.Areas.Admin.Models.ExternalAuthentication
+@using Bwr.Web.Areas.Admin.Models.Forums
+@using Bwr.Web.Areas.Admin.Models.Home
+@using Bwr.Web.Areas.Admin.Models.Localization
+@using Bwr.Web.Areas.Admin.Models.Logging
+@using Bwr.Web.Areas.Admin.Models.Messages
+@using Bwr.Web.Areas.Admin.Models.News
+@using Bwr.Web.Areas.Admin.Models.Orders
+@using Bwr.Web.Areas.Admin.Models.Payments
+@using Bwr.Web.Areas.Admin.Models.Plugins
+@using Bwr.Web.Areas.Admin.Models.Plugins.Marketplace
+@using Bwr.Web.Areas.Admin.Models.Polls
+@using Bwr.Web.Areas.Admin.Models.Reports
+@using Bwr.Web.Areas.Admin.Models.Security
+@using Bwr.Web.Areas.Admin.Models.Settings
+@using Bwr.Web.Areas.Admin.Models.Shipping
+@using Bwr.Web.Areas.Admin.Models.ShoppingCart
+@using Bwr.Web.Areas.Admin.Models.Stores
+@using Bwr.Web.Areas.Admin.Models.Tasks
+@using Bwr.Web.Areas.Admin.Models.Tax
+@using Bwr.Web.Areas.Admin.Models.Templates
+@using Bwr.Web.Areas.Admin.Models.Topics
+@using Bwr.Web.Areas.Admin.Models.Vendors
+@using Bwr.Web.Extensions
+@using Bwr.Web.Framework
+@using Bwr.Web.Framework.Models
+@using Bwr.Web.Framework.Events
+@using Bwr.Web.Framework.Extensions
+@using Bwr.Web.Framework.Infrastructure
+@using Bwr.Web.Framework.Models.DataTables
+@using Bwr.Web.Framework.Security.Captcha
+@using Bwr.Web.Framework.Security.Honeypot
+@using Bwr.Web.Framework.Themes
+@using Bwr.Web.Framework.UI

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Shipping rate computation",
+  "FriendlyName": "UPS (United Parcel Service)",
+  "SystemName": "Shipping.UPS",
+  "Version": "1.60",
+  "SupportedVersions": [ "4.30" ],
+  "Author": "bwire team",
+  "DisplayOrder": 1,
+  "FileName": "Bwr.Plugin.Shipping.UPS.dll",
+  "Description": "This plugin offers shipping rates by UPS"
+}

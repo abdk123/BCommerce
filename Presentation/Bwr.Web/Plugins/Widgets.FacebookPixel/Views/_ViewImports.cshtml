@@ -1,0 +1,25 @@
+﻿@inherits Bwr.Web.Framework.Mvc.Razor.NopRazorPage<TModel>
+@inject Bwr.Services.Common.IGenericAttributeService genericAttributeService
+@inject Bwr.Services.Stores.IStoreService storeService
+@inject IWorkContext workContext
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Bwr.Web.Framework
+
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using Microsoft.AspNetCore.Routing
+@using Bwr.Core
+@using Bwr.Core.Domain.Common
+@using Bwr.Core.Infrastructure
+@using Bwr.Plugin.Widgets.FacebookPixel
+@using Bwr.Plugin.Widgets.FacebookPixel.Models
+@using Bwr.Services.Events
+@using Bwr.Web.Framework
+@using Bwr.Web.Framework.Models
+@using Bwr.Web.Framework.Events
+@using Bwr.Web.Framework.Extensions
+@using Bwr.Web.Framework.Infrastructure
+@using Bwr.Web.Framework.Models.DataTables
+@using Bwr.Web.Framework.Security.Captcha
+@using Bwr.Web.Framework.Security.Honeypot
+@using Bwr.Web.Framework.Themes
+@using Bwr.Web.Framework.UI

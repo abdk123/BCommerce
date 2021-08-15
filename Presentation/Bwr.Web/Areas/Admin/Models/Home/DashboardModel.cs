@@ -1,0 +1,35 @@
+﻿using Bwr.Web.Areas.Admin.Models.Common;
+using Bwr.Web.Areas.Admin.Models.Reports;
+using Bwr.Web.Framework.Models;
+
+namespace Bwr.Web.Areas.Admin.Models.Home
+{
+    /// <summary>
+    /// Represents a dashboard model
+    /// </summary>
+    public partial class DashboardModel : BaseNopModel
+    {
+        #region Ctor
+
+        public DashboardModel()
+        {
+            PopularSearchTerms = new PopularSearchTermSearchModel();
+            BestsellersByAmount = new BestsellerBriefSearchModel();
+            BestsellersByQuantity = new BestsellerBriefSearchModel();
+        }
+
+        #endregion
+
+        #region Properties
+
+        public bool IsLoggedInAsVendor { get; set; }
+
+        public PopularSearchTermSearchModel PopularSearchTerms { get; set; }
+
+        public BestsellerBriefSearchModel BestsellersByAmount { get; set; }
+
+        public BestsellerBriefSearchModel BestsellersByQuantity { get; set; }
+
+        #endregion
+    }
+}
