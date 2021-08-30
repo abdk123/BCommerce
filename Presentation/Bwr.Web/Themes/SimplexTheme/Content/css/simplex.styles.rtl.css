@@ -6,7 +6,12 @@
 
 /* Web Styles for nopAccelerate Simplex Theme */
 
-body{font-family: 'Lato', sans-serif;background:#fff;color:#333;direction:rtl;}
+body {
+    font-family: 'droid_arabic_kufiregular','Lato', sans-serif;
+    background: #fff;
+    color: #333;
+    direction: rtl;
+}
 ul{margin:0px;padding:0px;}
 li{list-style:none;}
 .subscribe-button, a:hover,a,.owl-prev,.owl-next,.login-page .remember-me .checkbox label{transition:all 0.3s ease-in-out 0s;-webkit-transition:all 0.3s ease-in-out 0s;-moz-transition:all 0.3s ease-in-out 0s;-o-transition:all 0.3s ease-in-out 0s;text-decoration:none;}
@@ -74,7 +79,17 @@ input[type=checkbox], input[type=radio] {margin: 4px 0 0 4px;}
 .header-lower .search-box .ui-widget-content{border-radius:0px;border:1px solid #ddd;padding:0px;width:260px !important;position:absolute;}
 .header-lower .search-box .ui-autocomplete li:first-child{border:none;}
 .header-lower .ui-autocomplete li{border-top:1px dashed #bbb;float:right;width:100%;}
-.header-lower .ui-autocomplete li a{padding:10px;border-radius:0px;font-family: 'Open Sans', sans-serif;font-size:12px;background:#f5f5f5;cursor:pointer;float:right;width:100%;color:#333;}
+    .header-lower .ui-autocomplete li a {
+        padding: 10px;
+        border-radius: 0px;
+        font-family: 'droid_arabic_kufiregular','Open Sans', sans-serif;
+        font-size: 12px;
+        background: #f5f5f5;
+        cursor: pointer;
+        float: right;
+        width: 100%;
+        color: #333;
+    }
 .header-lower .ui-autocomplete li a:hover,.header-lower .ui-autocomplete li a:focus{color:#ea5648;border:none !important;background-color:#fff;}
 .header-lower .ui-autocomplete img{display: block;float: right;min-width: 30px;margin-left:10px;}
 .header-lower .ui-menu .ui-menu-item a.ui-state-focus,.header-lower .ui-menu .ui-menu-item a.ui-state-active{margin:0px;}
@@ -654,7 +669,7 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
     display: block;
     margin: 0 auto;
     margin-top: 10px;
-    font-family: 'Lato', sans-serif;
+    font-family: 'droid_arabic_kufiregular', 'Lato', sans-serif;
 }
 .backinstocksubscription-tooltip {border: 1px solid #ddd;margin-top: 5px;padding: 5px;}
 .product-details-page .subscribe-button{background:url(../images/notification-icon.png) no-repeat right 15px top 14px #f5f5f5;border: 2px solid #ddd;font-weight: 700;padding:10px 38px 10px 15px;}
@@ -843,7 +858,7 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
     position: initial;
     display: inline-block;
     color: #444;
-    font-family: 'Lato', sans-serif;
+    font-family: 'droid_arabic_kufiregular','Lato', sans-serif;
 }
 
 .tooltip .tooltiptext {
@@ -1412,7 +1427,10 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
 
 
 /* CHECKOUT PAGE READ LINK POPUP */
-.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable{font-family:'Lato', sans-serif;border:none!important;}
+.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
+    font-family: 'droid_arabic_kufiregular','Lato', sans-serif;
+    border: none !important;
+}
 .ui-corner-all{border-radius:0px!important;}
 .ui-dialog{padding:0!important;}
 .ui-widget-header{background:#ea5648!important;color:#fff!important;border:none!important;}
@@ -1916,7 +1934,12 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
 
 /* BBCODES */
 pre{white-space:pre-wrap;white-space:normal;word-wrap:break-word;}
-.csharpcode,.csharpcode pre{font-size:small;color:#000;font-family:Consolas,"Courier New",Courier,Monospace;background-color:#fff;}
+.csharpcode, .csharpcode pre {
+    font-size: small;
+    color: #000;
+    font-family: 'droid_arabic_kufiregular',Consolas,"Courier New",Courier,Monospace;
+    background-color: #fff;
+}
 .csharpcode pre{margin:0;}
 .csharpcode .rem{color:green;}
 .csharpcode .kwrd{color:#00f;}
