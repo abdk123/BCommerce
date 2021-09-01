@@ -14,6 +14,7 @@ namespace Bwr.Web.Models.Mobile.ShoppingCart
         }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        public string XmlAttribute { get; set; }
 
         public List<ProductAttribute> ProductAttributes { get; set; }
     }

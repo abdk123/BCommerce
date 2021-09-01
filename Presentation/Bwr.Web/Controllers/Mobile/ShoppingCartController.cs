@@ -101,6 +101,32 @@ namespace Bwr.Web.Controllers.Mobile
         }
 
         [HttpPost]
+        [Route("CheckProductIfHasAttributes")]
+        public IActionResult CheckProductIfHasAttributes(int ProductId)
+        {
+
+            var product = _productService.GetProductById(ProductId);
+            if (product == null)
+                //no product found
+                return Ok(new
+                {
+                    Success = false,
+                    Msg = "No product found with the specified ID"
+                });
+            var productAttributes = _productAttributeService.GetProductAttributeMappingsByProductId(product.Id);
+            if(productAttributes.Any(x=> x.IsRequired))
+                return Ok(new
+                {
+                    Success = false,
+                    Msg = "product has some required attributes, customer should see them."
+                });
+            return Ok(new
+            {
+                Success = true,
+                Msg = "no required attributes"
+            });
+        }
+        [HttpPost]
         [Route("AddProductToCart")]
         public IActionResult AddProductToCart(UpdatedItemsInCart newItem)
         {
@@ -246,6 +272,23 @@ namespace Bwr.Web.Controllers.Mobile
             var itemIdsToRemove = products.Where(x => productIds.Any(y => y != x.Key)).Select(x => x.Key).ToList();
             //get identifiers of items to add
             var itemIdsToAdd = cart.Any() ? productIds.Where(x => products.Any(y => y.Key != x)).ToList() : productIds;
+
+            var _addToCartWarnings = new List<string>();
+            foreach (var updated in updatedCartModel.Items)
+            {
+
+                var _product = _productService.GetProductById(updated.ProductId);
+                var fields = new Dictionary<string, StringValues>();
+                foreach (var item in updated.ProductAttributes)
+                {
+                    var controlId = $"{NopCatalogDefaults.ProductAttributePrefix}{item.AttributeId}";
+                    fields.Add(controlId, item.Values);
+                }
+                FormCollection form = new FormCollection(fields);
+                //product and gift card attributes
+                var attributes = _productAttributeParser.ParseProductAttributes(_product, form, _addToCartWarnings);
+                updated.XmlAttribute = attributes;
+            }
             //get order items with changed quantity
             var itemsWithNewQuantity = cart.Select(item => new
             {
@@ -280,18 +323,19 @@ namespace Bwr.Web.Controllers.Mobile
             //updated cart
             cart = _shoppingCartService.GetShoppingCart(customer, ShoppingCartType.ShoppingCart, _storeContext.CurrentStore.Id);
             var _products = _productService.GetProductsByIds(itemIdsToAdd.ToArray()).ToList();
-            foreach (var item in _products)
+            var productsFromModel = updatedCartModel.Items.Where(x => itemIdsToAdd.Any(y => y == x.ProductId)).ToList();
+            foreach (var p in productsFromModel)
             {
+                var item = _productService.GetProductById(p.ProductId);
                 warnings.Add(new
                 {
                     ItemId = item.Id,
                     Warnings = _shoppingCartService.AddToCart(customer: customer,
-                               product: item,
-                               shoppingCartType: ShoppingCartType.ShoppingCart,
-                               storeId: _storeContext.CurrentStore.Id,
-                               quantity: updatedCartModel.Items.Any(x => x.ProductId == item.Id) &&
-                                         updatedCartModel.Items.Where(x => x.ProductId == item.Id).FirstOrDefault().Quantity != 0 ?
-                                         updatedCartModel.Items.Where(x => x.ProductId == item.Id).FirstOrDefault().Quantity : 1)
+                              product: item,
+                              shoppingCartType: ShoppingCartType.ShoppingCart,
+                              attributesXml: p.XmlAttribute,
+                              storeId: _storeContext.CurrentStore.Id,
+                              quantity: p.Quantity)
                 });
             }
             //updated cart
