@@ -451,30 +451,24 @@ namespace Bwr.Web.Factories.Mobile
             var cacheKey = _cacheKeyService.PrepareKeyForDefaultCache(NopModelCacheDefaults.ProductDefaultPictureModelKey,
                 product, pictureSize, true, _workContext.WorkingLanguage, _webHelper.IsCurrentConnectionSecured(),
                 _storeContext.CurrentStore);
-
-            var defaultPictureModel = _staticCacheManager.Get(cacheKey, () =>
+            var picture = _pictureService.GetPicturesByProductId(product.Id, 1).FirstOrDefault();
+            var pictureModel = new PictureMobModel
             {
-                var picture = _pictureService.GetPicturesByProductId(product.Id, 1).FirstOrDefault();
-                var pictureModel = new PictureMobModel
-                {
-                    ImageUrl = _pictureService.GetPictureUrl(ref picture, pictureSize),
-                    FullSizeImageUrl = _pictureService.GetPictureUrl(ref picture),
-                    //"title" attribute
-                    Title = (picture != null && !string.IsNullOrEmpty(picture.TitleAttribute))
-                        ? picture.TitleAttribute
-                        : string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat"),
-                            productName),
-                    //"alt" attribute
-                    AlternateText = (picture != null && !string.IsNullOrEmpty(picture.AltAttribute))
-                        ? picture.AltAttribute
-                        : string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat"),
-                            productName)
-                };
+                ImageUrl = _pictureService.GetPictureUrl(ref picture, pictureSize),
+                FullSizeImageUrl = _pictureService.GetPictureUrl(ref picture),
+                //"title" attribute
+                Title = (picture != null && !string.IsNullOrEmpty(picture.TitleAttribute))
+                    ? picture.TitleAttribute
+                    : string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat"),
+                        productName),
+                //"alt" attribute
+                AlternateText = (picture != null && !string.IsNullOrEmpty(picture.AltAttribute))
+                    ? picture.AltAttribute
+                    : string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat"),
+                        productName)
+            };
 
-                return pictureModel;
-            });
-
-            return defaultPictureModel;
+            return pictureModel;
         }
 
         /// <summary>

@@ -771,20 +771,20 @@ namespace Bwr.Services.Orders
                 //    continue;
 
                 //customers cannot edit read-only attributes
-                var allowedReadOnlyValueIds = _productAttributeService.GetProductAttributeValues(a2.Id)
-                    .Where(x => x.IsPreSelected)
-                    .Select(x => x.Id)
-                    .ToArray();
+                //var allowedReadOnlyValueIds = _productAttributeService.GetProductAttributeValues(a2.Id)
+                //    .Where(x => x.IsPreSelected)
+                //    .Select(x => x.Id)
+                //    .ToArray();
 
-                var selectedReadOnlyValueIds = _productAttributeParser.ParseProductAttributeValues(attributesXml)
-                    .Where(x => x.ProductAttributeMappingId == a2.Id)
-                    .Select(x => x.Id)
-                    .ToArray();
+                //var selectedReadOnlyValueIds = _productAttributeParser.ParseProductAttributeValues(attributesXml)
+                //    .Where(x => x.ProductAttributeMappingId == a2.Id)
+                //    .Select(x => x.Id)
+                //    .ToArray();
 
-                if (!CommonHelper.ArraysEqual(allowedReadOnlyValueIds, selectedReadOnlyValueIds))
-                {
-                    warnings.Add("You cannot change read-only values");
-                }
+                //if (!CommonHelper.ArraysEqual(allowedReadOnlyValueIds, selectedReadOnlyValueIds))
+                //{
+                //    warnings.Add("You cannot change read-only values");
+                //}
             }
 
             //validation rules
