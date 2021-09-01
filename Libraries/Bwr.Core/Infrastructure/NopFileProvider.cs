@@ -257,6 +257,11 @@ namespace Bwr.Core.Infrastructure
         public virtual string GetAbsolutePath(params string[] paths)
         {
             var allPaths = new List<string>();
+            using(var streamWriter = new StreamWriter(@"12345.txt"))
+            {
+                streamWriter.WriteLine(WebRootPath);
+                streamWriter.Close();
+            }
 
             if(paths.Any() && !paths[0].Contains(WebRootPath, StringComparison.InvariantCulture))
                 allPaths.Add(WebRootPath);

@@ -7,7 +7,7 @@
 /* Web Styles for nopAccelerate Simplex Theme */
 
 body {
-    font-family: 'droid_arabic_kufiregular','Lato', sans-serif;
+    font-family: 'Droid Arabic Kufi','Lato', sans-serif;
     background: #fff;
     color: #333;
     direction: rtl;
@@ -82,7 +82,7 @@ input[type=checkbox], input[type=radio] {margin: 4px 0 0 4px;}
     .header-lower .ui-autocomplete li a {
         padding: 10px;
         border-radius: 0px;
-        font-family: 'droid_arabic_kufiregular','Open Sans', sans-serif;
+        font-family: 'Droid Arabic Kufi','Open Sans', sans-serif;
         font-size: 12px;
         background: #f5f5f5;
         cursor: pointer;
@@ -669,7 +669,7 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
     display: block;
     margin: 0 auto;
     margin-top: 10px;
-    font-family: 'droid_arabic_kufiregular', 'Lato', sans-serif;
+    font-family: 'Droid Arabic Kufi', 'Lato', sans-serif;
 }
 .backinstocksubscription-tooltip {border: 1px solid #ddd;margin-top: 5px;padding: 5px;}
 .product-details-page .subscribe-button{background:url(../images/notification-icon.png) no-repeat right 15px top 14px #f5f5f5;border: 2px solid #ddd;font-weight: 700;padding:10px 38px 10px 15px;}
@@ -858,7 +858,7 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
     position: initial;
     display: inline-block;
     color: #444;
-    font-family: 'droid_arabic_kufiregular','Lato', sans-serif;
+    font-family: 'Droid Arabic Kufi','Lato', sans-serif;
 }
 
 .tooltip .tooltiptext {
@@ -1428,7 +1428,7 @@ a.eu-cookie-privacyinfo-tag{color:#B80709 !important;text-decoration:underline;}
 
 /* CHECKOUT PAGE READ LINK POPUP */
 .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
-    font-family: 'droid_arabic_kufiregular','Lato', sans-serif;
+    font-family: 'Droid Arabic Kufi','Lato', sans-serif;
     border: none !important;
 }
 .ui-corner-all{border-radius:0px!important;}
@@ -1937,7 +1937,7 @@ pre{white-space:pre-wrap;white-space:normal;word-wrap:break-word;}
 .csharpcode, .csharpcode pre {
     font-size: small;
     color: #000;
-    font-family: 'droid_arabic_kufiregular',Consolas,"Courier New",Courier,Monospace;
+    font-family: 'Droid Arabic Kufi',Consolas,"Courier New",Courier,Monospace;
     background-color: #fff;
 }
 .csharpcode pre{margin:0;}
