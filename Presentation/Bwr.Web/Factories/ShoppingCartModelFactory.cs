@@ -96,6 +96,9 @@ namespace Bwr.Web.Factories
         private readonly TaxSettings _taxSettings;
         private readonly VendorSettings _vendorSettings;
 
+        private readonly IProductAttributeService _productAttributeService;
+        private readonly IProductAttributeParser _productAttributeParser;
+
         #endregion
 
         #region Ctor
@@ -146,7 +149,9 @@ namespace Bwr.Web.Factories
             ShippingSettings shippingSettings,
             ShoppingCartSettings shoppingCartSettings,
             TaxSettings taxSettings,
-            VendorSettings vendorSettings)
+            VendorSettings vendorSettings,
+            IProductAttributeService productAttributeService,
+            IProductAttributeParser productAttributeParser)
         {
             _addressSettings = addressSettings;
             _captchaSettings = captchaSettings;
@@ -195,6 +200,8 @@ namespace Bwr.Web.Factories
             _shoppingCartSettings = shoppingCartSettings;
             _taxSettings = taxSettings;
             _vendorSettings = vendorSettings;
+            _productAttributeParser = productAttributeParser;
+            _productAttributeService = productAttributeService;
         }
 
         #endregion
@@ -373,9 +380,40 @@ namespace Bwr.Web.Factories
 
             if (sci == null)
                 throw new ArgumentNullException(nameof(sci));
-
+            var attributesModel = new List<Bwr.Web.Models.Catalog.ProductDetailsModel.ProductAttributeModel>();
             var product = _productService.GetProductById(sci.ProductId);
-
+            var attributes = _productAttributeParser.ParseProductAttributeMappings(sci.AttributesXml);
+            foreach (var attribute in attributes)
+            {
+                var attributesValueModel = new List<Bwr.Web.Models.Catalog.ProductDetailsModel.ProductAttributeValueModel>();
+                var productAttrubute = _productAttributeService.GetProductAttributeById(attribute.ProductAttributeId);
+                var attrubuteValues = _productAttributeParser.ParseProductAttributeValues(sci.AttributesXml, attribute.Id);
+                foreach (var val in attrubuteValues)
+                {
+                    attributesValueModel.Add(new Models.Catalog.ProductDetailsModel.ProductAttributeValueModel
+                    {
+                        Id = val.Id,
+                        Name = val.Name,
+                         ColorSquaresRgb = val.ColorSquaresRgb,
+                         CustomerEntersQty = val.CustomerEntersQty,
+                         IsPreSelected = val.IsPreSelected,
+                         PriceAdjustmentValue = val.PriceAdjustment,
+                         PictureId = val.PictureId,
+                         Quantity = val.Quantity,
+                         PriceAdjustmentUsePercentage = val.PriceAdjustmentUsePercentage,
+                    });
+                }
+                attributesModel.Add(new Models.Catalog.ProductDetailsModel.ProductAttributeModel
+                {
+                    Id = attribute.Id,
+                    Name = productAttrubute.Name,
+                    Description = productAttrubute.Description,
+                    ProductId = attribute.ProductId,
+                    IsRequired = attribute.IsRequired,
+                    AttributeControlType = attribute.AttributeControlType,
+                    Values = attributesValueModel
+                });
+            }
             var cartItemModel = new ShoppingCartModel.ShoppingCartItemModel
             {
                 Id = sci.Id,
@@ -386,6 +424,7 @@ namespace Bwr.Web.Factories
                 ProductSeName = _urlRecordService.GetSeName(product),
                 Quantity = sci.Quantity,
                 AttributeInfo = _productAttributeFormatter.FormatAttributes(product, sci.AttributesXml),
+                ProductAttributes = attributesModel
             };
 
             //allow editing?

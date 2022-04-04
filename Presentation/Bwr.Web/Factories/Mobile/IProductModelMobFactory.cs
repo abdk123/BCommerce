@@ -65,7 +65,7 @@ namespace Bwr.Web.Factories.Mobile
         /// <param name="excludeProperties">Whether to exclude populating of model properties from the entity</param>
         /// <returns>product email a friend model</returns>
         ProductEmailAFriendMobModel PrepareProductEmailAFriendModel(ProductEmailAFriendMobModel model, Product product, bool excludeProperties);
-
+        
         /// <summary>
         /// Prepare the product specification models
         /// </summary>

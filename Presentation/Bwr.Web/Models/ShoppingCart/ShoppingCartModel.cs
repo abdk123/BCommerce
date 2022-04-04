@@ -80,6 +80,8 @@ namespace Bwr.Web.Models.ShoppingCart
             
             public string AttributeInfo { get; set; }
 
+            public IList<Bwr.Web.Models.Catalog.ProductDetailsModel.ProductAttributeModel> ProductAttributes { get; set; }
+
             public string RecurringInfo { get; set; }
 
             public string RentalInfo { get; set; }

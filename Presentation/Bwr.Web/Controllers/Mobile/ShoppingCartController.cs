@@ -184,13 +184,29 @@ namespace Bwr.Web.Controllers.Mobile
             //    });
             //allow a product to be added to the cart when all attributes are with "read-only checkboxes" type
             var productAttributes = _productAttributeService.GetProductAttributeMappingsByProductId(product.Id);
-            if ((!newItem.ProductAttributes.Any() || newItem.ProductAttributes.FirstOrDefault().AttributeId == 0 || !newItem.ProductAttributes.FirstOrDefault().Values.Any()))
-                //product has some attributes. let a customer see them
-                return Ok(new
+            if (productAttributes.Any(x => x.IsRequired))
+            {
+                if (newItem.ProductAttributes.Any())
                 {
-                    Success = false,
-                    Msg = "product has some attributes, customer should see them."
-                });
+                    foreach (var att in productAttributes)
+                        if (att.IsRequired)
+                        {
+                            var attribute = newItem.ProductAttributes.FirstOrDefault(x => x.AttributeId == att.Id);
+                            if (attribute == null)
+                                return Ok(new
+                                {
+                                    Success = false,
+                                    Msg = "product attribute with Id " + att.Id + " is required"
+                                });
+                        }
+                }
+                else
+                    return Ok(new
+                    {
+                        Success = false,
+                        Msg = "product has some attributes, customer should see them."
+                    });
+            }
 
             var addToCartWarnings = new List<string>();
             var fields = new Dictionary<string, StringValues>();
