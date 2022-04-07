@@ -1,1 +1,1 @@
-C:\Projects\BCommerce\Presentation\Bwr.Web\wwwroot
+C:\Projects\B-Wire\AymanLibrary\BCommerce\Presentation\Bwr.Web\wwwroot
